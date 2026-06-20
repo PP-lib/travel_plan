@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase1 è©³ç´°è¨ç» + æéãªã¹ãï½2026å¤ å®¶ææè¡</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f0f4f8; color: #1a202c; }
+
+  .hero { background: linear-gradient(135deg, #13488c 0%, #1a6bb5 60%, #0e3a6e 100%); color: white; padding: 36px 40px 28px; }
+  .hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: 0.05em; }
+  .hero .sub { font-size: 1rem; opacity: 0.85; margin-top: 6px; }
+  .hero .meta { display: flex; gap: 24px; margin-top: 18px; flex-wrap: wrap; }
+  .hero .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 5px 14px; font-size: 0.85rem; }
+
+  .section { padding: 32px 40px; }
+  .section-title { font-size: 1.3rem; font-weight: 700; color: #13488c; border-left: 5px solid #13488c; padding-left: 14px; margin-bottom: 22px; }
+
+  .flight-box { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+  .flight-box table { width: 100%; border-collapse: collapse; }
+  .flight-box thead { background: #13488c; color: white; }
+  .flight-box thead th { padding: 12px 16px; text-align: left; font-size: 0.85rem; font-weight: 600; }
+  .flight-box tbody tr:nth-child(even) { background: #f7f9fc; }
+  .flight-box tbody td { padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid #e8edf3; }
+  .flight-num { font-weight: 700; color: #13488c; }
+  .badge-done { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-todo { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+
+  .warn-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.88rem; color: #9a3412; }
+  .warn-box strong { display: block; margin-bottom: 4px; }
+
+  .calendar-wrap { overflow-x: auto; padding-bottom: 8px; }
+  .calendar-grid { display: flex; gap: 10px; min-width: max-content; padding: 4px 2px; }
+  .day-card { width: 185px; border-radius: 14px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,0.1); flex-shrink: 0; background: white; }
+  .day-header { padding: 12px 14px 10px; color: white; }
+  .day-header .weekday { font-size: 0.75rem; opacity: 0.85; font-weight: 500; text-transform: uppercase; }
+  .day-header .date-big { font-size: 2.4rem; font-weight: 900; line-height: 1; }
+  .day-header .month { font-size: 0.8rem; opacity: 0.85; }
+  .day-header .night { font-size: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 2px 7px; display: inline-block; margin-top: 5px; }
+  .day-body { padding: 10px 12px 14px; }
+  .pill { border-radius: 20px; padding: 4px 10px; font-size: 0.78rem; font-weight: 600; margin-bottom: 5px; line-height: 1.4; display: block; }
+  .pill-blue   { background: #dbeafe; color: #1e40af; }
+  .pill-green  { background: #d1fae5; color: #065f46; }
+  .pill-purple { background: #ede9fe; color: #4c1d95; }
+  .pill-orange { background: #ffedd5; color: #9a3412; }
+  .pill-teal   { background: #ccfbf1; color: #134e4a; }
+  .pill-red    { background: #fee2e2; color: #7f1d1d; }
+  .pill-gray   { background: #f3f4f6; color: #374151; }
+
+  .h-blue   { background: linear-gradient(135deg, #1e40af, #3b82f6); }
+  .h-green  { background: linear-gradient(135deg, #065f46, #10b981); }
+  .h-purple { background: linear-gradient(135deg, #4c1d95, #8b5cf6); }
+  .h-orange { background: linear-gradient(135deg, #92400e, #f59e0b); }
+  .h-teal   { background: linear-gradient(135deg, #134e4a, #14b8a6); }
+  .h-red    { background: linear-gradient(135deg, #7f1d1d, #ef4444); }
+  .h-gray   { background: linear-gradient(135deg, #374151, #6b7280); }
+
+  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .checklist-grid { grid-template-columns: 1fr; } }
+  .check-card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .check-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.88rem; }
+  .check-item:last-child { border-bottom: none; }
+  .check-item .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .check-item .lbl { flex: 1; }
+  .check-item .lbl strong { display: block; }
+  .check-item .lbl span { color: #6b7280; font-size: 0.82rem; }
+  .tag { padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+  .tag-done    { background: #d1fae5; color: #065f46; }
+  .tag-req     { background: #fef3c7; color: #92400e; }
+  .tag-contact { background: #ede9fe; color: #4c1d95; }
+  .tag-na      { background: #f3f4f6; color: #6b7280; }
+
+  .cost-box { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .cost-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.9rem; }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-total { font-weight: 700; font-size: 1.1rem; color: #13488c; }
+  .cost-total .amt { font-size: 1.4rem; }
+
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content:''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-dot { position: absolute; left: -22px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #13488c; }
+  .tl-time { font-size: 0.78rem; color: #6b7280; font-weight: 600; }
+  .tl-text { font-size: 0.9rem; font-weight: 500; }
+  .tl-note { font-size: 0.8rem; color: #6b7280; margin-top: 2px; }
+
+  .day-section { background: white; border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 14px; }
+  .day-section h4 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
+
+  .note-moved { border: 2px dashed #cbd5e0; border-radius: 10px; padding: 12px 16px; background: #f8fafc; color: #718096; font-size: 0.85rem; margin-top: 12px; }
+  .note-moved strong { color: #4a5568; }
+
+  .quote { background: #f0f4f8; border-left: 4px solid #13488c; padding: 14px 20px; margin: 0 40px 8px; font-style: italic; color: #4a5568; font-size: 0.9rem; }
+  .quote cite { display: block; margin-top: 6px; font-size: 0.8rem; color: #718096; font-style: normal; }
+
+  .footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🇯🇵 2026夏 家族旅行｜Phase 1 詳細計画</h1>
+  <div class="sub">手配リスト統合版</div>
+  <div class="meta">
+    <span class="badge">📅 7月25日(土)〜8月2日(日)</span>
+    <span class="badge">👨‍👩‍👧‍👦 父(37)・妻(39)・長女(8)・次女(5)</span>
+    <span class="badge">✈️ インドネシア → 高松 → 神戸 → 福岡 → 帰国</span>
+    <span class="badge">💰 予算 約60万円</span>
+  </div>
+</div>
+
+<div class="quote">
+  「旅とは、場所に行くのではなく、新しい見方を手に入れることだ」
+  <cite>— ヘンリー・ミラー</cite>
+</div>
+
+<!-- ======= FLIGHT ======= -->
+<div class="section">
+  <div class="section-title">✈️ フライト情報</div>
+  <div class="flight-box">
+    <table>
+      <thead>
+        <tr><th>区間</th><th>便名</th><th>路線</th><th>出発</th><th>到着</th><th>座席</th><th>ターミナル</th><th>搭乗者</th><th>予約番号</th><th>状態</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>往路①</td><td class="flight-num">NH856</td><td>JKT→HND</td><td>7/25(土) 21:25</td><td>7/26(日) 06:50</td><td>23D</td><td>T3(CGK)</td><td>父</td><td rowspan="2">FBW2MV</td><td><span class="badge-done">✅ 済</span></td>
+        </tr>
+        <tr>
+          <td>往路②</td><td class="flight-num">NH533</td><td>HND→TAK</td><td>7/26(日) 09:30</td><td>7/26(日) 10:50</td><td>15H</td><td>T2(HND)</td><td>父</td><td><span class="badge-done">✅ 済</span></td>
+        </tr>
+        <tr style="background:#f0f9ff;">
+          <td>往路①</td><td class="flight-num">NH856</td><td>JKT→HND</td><td>7/25(土) 21:25</td><td>7/26(日) 06:50</td><td>未確認</td><td>T3(CGK)</td><td>妻・長女・次女</td><td rowspan="2">EME3G4<br><small style="color:#6b7280">※夜便要確認</small></td><td><span class="badge-todo">⚠️ 要確認</span></td>
+        </tr>
+        <tr style="background:#f0f9ff;">
+          <td>往路②</td><td class="flight-num">NH533</td><td>HND→TAK</td><td>7/26(日) 09:30</td><td>7/26(日) 10:50</td><td>未確認</td><td>T2(HND)</td><td>妻・長女・次女</td><td><span class="badge-todo">⚠️ 要確認</span></td>
+        </tr>
+        <tr style="background:#fff7ed;">
+          <td>復路①</td><td class="flight-num">NH534</td><td>TAK→HND</td><td>8/2(日) 09:25</td><td>8/2(日) 10:45</td><td>11C</td><td>T2(TAK)</td><td>父のみ</td><td rowspan="2">FBW2MV</td><td><span class="badge-done">✅ 済</span></td>
+        </tr>
+        <tr style="background:#fff7ed;">
+          <td>復路②</td><td class="flight-num">NH835</td><td>NRT→JKT</td><td>8/2(日) 17:50</td><td>8/2(日) 23:45</td><td>27C</td><td>T1(NRT)</td><td>父のみ</td><td><span class="badge-done">✅ 済</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn-box">
+    <strong>⚠️ 父 8/2 乗継注意（羽田 → 成田）約90分</strong>
+    NH534着 10:45 → リムジンバス 11:30乗車 → 成田着 13:15 → NH835発 17:50<br>
+    <strong>帰国中央市出発は 07:30 が目安</strong>（高松空港まで約60分）<br>
+    ※ EME3G4（妻・子供）はGmailのPDF添付のためか詳細未取得。ANAのWebで確認してください。
+  </div>
+</div>
+
+<!-- ======= CALENDAR ======= -->
+<div class="section">
+  <div class="section-title">📅 9日間カレンダー（7/25〜8/2）</div>
+  <div class="calendar-wrap">
+    <div class="calendar-grid">
+
+      <div class="day-card">
+        <div class="day-header h-blue">
+          <div class="weekday">Saturday</div>
+          <div class="date-big">25</div>
+          <div class="month">7月</div>
+          <div class="night">機内泊</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-gray">🏠 ジャカルタ出発</span>
+          <span class="pill pill-blue">✈️ NH856 21:25発</span>
+          <span class="pill pill-gray">CGK Terminal 3</span>
+          <span class="pill pill-gray">家族全員搭乗</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-green">
+          <div class="weekday">Sunday</div>
+          <div class="date-big">26</div>
+          <div class="month">7月</div>
+          <div class="night">帰国中央市泊</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-blue">🛬 HND着 06:50</span>
+          <span class="pill pill-blue">✈️ NH533 09:30発</span>
+          <span class="pill pill-blue">🛬 高松着 10:50</span>
+          <span class="pill pill-green">🚗 義父がピックアップ</span>
+          <span class="pill pill-green">👨‍👩‍👧 妹家へ挨拶（高松）</span>
+          <span class="pill pill-green">🏠 帰国中央市 到着</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-green">
+          <div class="weekday">Monday</div>
+          <div class="date-big">27</div>
+          <div class="month">7月</div>
+          <div class="night">帰国中央市泊</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-green">🏠 帰国中央市ベース</span>
+          <span class="pill pill-green">🏃 父：トレイルラン</span>
+          <span class="pill pill-green">👨‍👩‍👧‍👦 家族：休養・時差解消</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-purple">
+          <div class="weekday">Tuesday</div>
+          <div class="date-big">28</div>
+          <div class="month">7月</div>
+          <div class="night">神戸泊</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-purple">🚗 帰国→神戸 移動</span>
+          <span class="pill pill-purple">🍵 父方の母（祖母）と夕食（神戸）</span>
+          <span class="pill pill-purple">🏨 神戸 ホテル泊</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-orange">
+          <div class="weekday">Wednesday</div>
+          <div class="date-big">29</div>
+          <div class="month">7月</div>
+          <div class="night">福岡泊①</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-purple">🚄 新神戸→博多 新幹線</span>
+          <span class="pill pill-orange">🛬 福岡 到着</span>
+          <span class="pill pill-orange">🍲 豚骨（はいか）検討</span>
+          <span class="pill pill-orange">🏨 福岡 ホテル泊①</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-orange">
+          <div class="weekday">Thursday</div>
+          <div class="date-big">30</div>
+          <div class="month">7月</div>
+          <div class="night">福岡泊②</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-orange">🌿 湯布院 日帰り</span>
+          <span class="pill pill-orange">🌸 コスモス 検討</span>
+          <span class="pill pill-orange">♨️ 別府 温泉</span>
+          <span class="pill pill-orange">🏨 福岡 ホテル泊②</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-teal">
+          <div class="weekday">Friday</div>
+          <div class="date-big">31</div>
+          <div class="month">7月</div>
+          <div class="night">帰国中央市泊</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-orange">🌅 午前 観光・グルメ</span>
+          <span class="pill pill-teal">⛴️ フェリー 小倉→松山</span>
+          <span class="pill pill-green">🏠 帰国中央市 帰宅</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-green">
+          <div class="weekday">Saturday</div>
+          <div class="date-big">1</div>
+          <div class="month">8月</div>
+          <div class="night">帰国中央市泊</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-green">🏠 帰国中央市ベース</span>
+          <span class="pill pill-green">👨‍👩‍👧‍👦 家族と過ごす</span>
+          <span class="pill pill-red">🧳 父：帰国準備</span>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header h-red">
+          <div class="weekday">Sunday</div>
+          <div class="date-big">2</div>
+          <div class="month">8月</div>
+          <div class="night">父 帰国</div>
+        </div>
+        <div class="day-body">
+          <span class="pill pill-red">🚗 07:30 帰国中央市発</span>
+          <span class="pill pill-red">✈️ NH534 09:25 TAK発</span>
+          <span class="pill pill-red">🚌 羽田→成田 バス</span>
+          <span class="pill pill-red">✈️ NH835 17:50 NRT発</span>
+          <span class="pill pill-gray">👨‍👩‍👧‍👦 家族は Phase 2 へ</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ======= TIMELINE ======= -->
+<div class="section">
+  <div class="section-title">🗺️ 各日タイムライン</div>
+
+  <div class="day-section">
+    <h4 style="color:#065f46;">📅 7/26（日）高松到着・妹家挨拶・帰国中央市へ</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">06:50</div><div class="tl-text">羽田空港 到着（NH856）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">07:00〜09:00</div><div class="tl-text">羽田 T2 乗継・朝食・入国審査</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">09:30</div><div class="tl-text">NH533 羽田発 → 高松</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">10:50</div><div class="tl-text">高松空港 到着</div><div class="tl-note">🚗 義父が車でピックアップ（レンタカー不要）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">11:30〜13:00</div><div class="tl-text">父方の妹家へ挨拶（高松）</div><div class="tl-note">短時間訪問・昼食</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">15:00頃</div><div class="tl-text">帰国中央市（妻の実家）到着</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#065f46;">📅 7/27（月）帰国中央市 ／ 父：トレイルラン</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">早朝</div><div class="tl-text">父：トレイルランニング練習（帰国山岳）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">終日</div><div class="tl-text">家族：実家でゆっくり・時差解消</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#4c1d95;">📅 7/28（火）帰国→神戸 ／ 祖母と食事</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午前</div><div class="tl-text">帰国中央市 出発</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">神戸 到着</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夕方〜夜</div><div class="tl-text">父方の母（祖母）と夕食</div><div class="tl-note">場所・時間は祖母と要調整</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">神戸 ホテル泊</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#92400e;">📅 7/29（水）新幹線 新神戸→博多 ／ 福岡着</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午前</div><div class="tl-text">新神戸 → 博多（新幹線 約2.5h）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">昼〜午後</div><div class="tl-text">福岡 観光・グルメ</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夕食</div><div class="tl-text">豚骨（はいか）検討 ／ 中洲 屋台</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">福岡 ホテル泊①</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#92400e;">📅 7/30（木）湯布院・別府 日帰り</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">早朝</div><div class="tl-text">福岡 → 湯布院（レンタカー or 観光バス）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午前</div><div class="tl-text">湯布院 散策・昼食（コスモス検討）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">別府 温泉（地獄めぐり or 家族風呂）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">福岡 ホテル泊②</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#134e4a;">📅 7/31（金）午前観光 ／ フェリー 小倉→松山</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午前</div><div class="tl-text">福岡 最終観光・お土産</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">博多 → 小倉（移動）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夕方〜夜</div><div class="tl-text">⛴️ フェリー 小倉港 → 松山港（所要約10時間）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">深夜〜翌朝</div><div class="tl-text">松山港 → 帰国中央市 帰宅</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#065f46;">📅 8/1（土）帰国中央市 ／ 父 最後の日</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">終日</div><div class="tl-text">帰国中央市 家族と過ごす</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">父：帰国荷物整理・準備</div></div>
+    </div>
+  </div>
+
+  <div class="day-section">
+    <h4 style="color:#7f1d1d;">📅 8/2（日）父 帰国日 ✈️ 乗継注意</h4>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">07:30</div><div class="tl-text">帰国中央市 出発（車で高松空港へ）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">08:45頃</div><div class="tl-text">高松空港 到着・チェックイン</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">09:25</div><div class="tl-text">NH534 高松発 → 羽田</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">10:45</div><div class="tl-text">羽田着（T2）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">11:30</div><div class="tl-text">🚌 羽田→成田 リムジンバス（約90分）</div><div class="tl-note" style="color:#dc2626;font-weight:600;">⚠️ 事前予約必須！</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">13:15頃</div><div class="tl-text">成田 T1 到着</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">〜17:00</div><div class="tl-text">チェックイン・出国審査</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">17:50</div><div class="tl-text">NH835 成田発 → ジャカルタ</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">23:45</div><div class="tl-text">ジャカルタ（CGK）到着</div></div>
+    </div>
+    <div class="note-moved">
+      <strong>👨‍👩‍👧 妻・子供たち（8/2〜8/23）</strong><br>
+      父帰国後は帰国中央市をベースに Phase 2 活動継続。長女の友達との再会など。
+    </div>
+  </div>
+</div>
+
+<!-- ======= CHECKLIST ======= -->
+<div class="section">
+  <div class="section-title">📋 手配・予約チェックリスト</div>
+  <div class="checklist-grid">
+
+    <div class="check-card">
+      <h3 style="color:#1e40af;">✈️ フライト</h3>
+      <div class="check-item">
+        <div class="ico">✅</div>
+        <div class="lbl"><strong>父 往復（FBW2MV）</strong><span>NH856+NH533 / NH534+NH835 ｜ 183,870円</span></div>
+        <span class="tag tag-done">済</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">⚠️</div>
+        <div class="lbl"><strong>家族 夜の往路（妻・長女・次女）</strong><span>EME3G4は3名便のため夜便か要確認</span></div>
+        <span class="tag tag-req">要確認</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>家族 帰国便（8/23）</strong><span>妻・長女・次女の帰国フライト</span></div>
+        <span class="tag tag-req">要手配</span>
+      </div>
+    </div>
+
+    <div class="check-card">
+      <h3 style="color:#065f46;">🚗 交通・移動</h3>
+      <div class="check-item">
+        <div class="ico">✅</div>
+        <div class="lbl"><strong>高松空港 → 帰国中央市</strong><span>義父が車でピックアップ</span></div>
+        <span class="tag tag-done">対応済</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>新幹線（新神戸→博多 7/29）</strong><span>家族4名 ｜ 目安 約24,000円</span></div>
+        <span class="tag tag-req">要予約</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>フェリー（小倉→松山 7/31）</strong><span>家族4名 ｜ 目安 約25,000〜40,000円</span></div>
+        <span class="tag tag-req">要予約</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>羽田→成田 リムジンバス（父のみ 8/2）</strong><span>11:30乗車目標 ｜ 約3,200円</span></div>
+        <span class="tag tag-req">要予約</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>レンタカー（福岡・湯布院 7/29〜31）</strong><span>目安 約18,000〜25,000円</span></div>
+        <span class="tag tag-req">要予約</span>
+      </div>
+    </div>
+
+    <div class="check-card">
+      <h3 style="color:#4c1d95;">🏨 宿泊</h3>
+      <div class="check-item">
+        <div class="ico">✅</div>
+        <div class="lbl"><strong>帰国中央市（妻の実家）</strong><span>7/26〜27 / 8/1〜2 ｜ 費用なし</span></div>
+        <span class="tag tag-done">対応済</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>神戸 ホテル（7/28 1泊）</strong><span>家族4名 ｜ 目安 約20,000〜30,000円</span></div>
+        <span class="tag tag-req">要予約</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>福岡 ホテル（7/29〜30 2泊）</strong><span>家族4名 ｜ 目安 約30,000〜50,000円</span></div>
+        <span class="tag tag-req">要予約</span>
+      </div>
+    </div>
+
+    <div class="check-card">
+      <h3 style="color:#92400e;">📞 連絡・調整</h3>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>祖母（神戸）への連絡</strong><span>7/28 夕食の場所・時間調整</span></div>
+        <span class="tag tag-contact">要連絡</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>妹家（高松）への確認</strong><span>7/26 訪問時間・昼食調整</span></div>
+        <span class="tag tag-contact">要連絡</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>長女の友達 親御さん</strong><span>Phase 2（8月中旬）の日程調整</span></div>
+        <span class="tag tag-contact">Phase2で連絡</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>豚骨（福岡・はいか）</strong><span>7/29 夕食 ｜ 子連れ可否確認</span></div>
+        <span class="tag tag-req">要予約検討</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======= COST ======= -->
+<div class="section">
+  <div class="section-title">💰 費用まとめ（Phase 1）</div>
+  <div class="cost-box">
+    <div class="cost-row"><span>✅ 父 往復フライト（FBW2MV）</span><span>183,870円</span></div>
+    <div class="cost-row"><span>⚠️ 家族 夜の往路フライト（要確認）</span><span>未確定</span></div>
+    <div class="cost-row"><span>🔲 新幹線（新神戸→博多 家族4名</span><span>約24,000円</span></div>
+    <div class="cost-row"><span>🔲 フェリー（小倉→松山 家族4名）</span><span>約25,000〜40,000円</span></div>
+    <div class="cost-row"><span>🔲 羽田→成田 リムジンバス（父）</span><span>約3,200円</span></div>
+    <div class="cost-row"><span>🔲 レンタカー（福岡・湯布院）</span><span>約18,000〜25,000円</span></div>
+    <div class="cost-row"><span>🔲 神戸 ホテル 1泊</span><span>約20,000〜30,000円</span></div>
+    <div class="cost-row"><span>🔲 福岡 ホテル 2泊</span><span>約30,000〜50,000円</span></div>
+    <div class="cost-row"><span>🍽️ 食費・観光・お土産</span><span>約50,000〜80,000円</span></div>
+    <div class="cost-row cost-total">
+      <span>Phase 1 合計目安（家族フライト除く）</span>
+      <span class="amt">約354,000〜436,000円</span>
+    </div>
+  </div>
+  <div style="margin-top:12px;font-size:0.83rem;color:#6b7280;">
+    ※ 家族の夜往路フライト・帰国便は別途計上。全体予算60万円のうち Phase 2 に残り約16〜24万円を充当予定。
+  </div>
+</div>
+
+<!-- ======= PHASE2 MEMO ======= -->
+<div class="section">
+  <div class="section-title">📝 Phase 2 メモ（8/3〜8/23 家族のみ）</div>
+  <div class="note-moved">
+    <strong>Phase 2 予定アクティビティ</strong><br><br>
+    🏔️ 道後温泉（松山市）｜ 🐙 たまなみ海道 ｜ 🌻 高知（四万十川・桂浜）｜ ⛩️ 金刀比羅宮 ｜ 🦁 長女の日本の友達と再会<br><br>
+    <strong>手配要件：</strong>家族 帰国便 8/23（未手配）｜ 長女の友達 親御さんへの連絡
+  </div>
+</div>
+
+<div class="footer">
+  米井家 2026夏 日本旅行 ｜ Phase 1 詳細計画 ｜ 最終更新：2026年6月20日
+</div>
+
+</body>
+</html>
