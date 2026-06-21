@@ -262,10 +262,8 @@
           <div class="night">四国中央市泊</div>
         </div>
         <div class="day-body">
-          <span class="pill pill-teal">🌋 草千里浜 散策</span>
-          <span class="pill pill-teal">🚗 やまなみハイウェイ</span>
-          <span class="pill pill-teal">🌸 湯布院 立寄り</span>
-          <span class="pill pill-teal">🚗 → 熊本駅 レンタカー返却</span>
+          <span class="pill pill-teal">🌋 草千里浜 散策（タクシー）</span>
+          <span class="pill pill-teal">🚂 宮地駅→熊本（JR）</span>
           <span class="pill pill-purple">🚄 熊本→岡山 新幹線</span>
           <span class="pill pill-green">🚃 マリンライナー→四国中央市</span>
           <span class="pill pill-green">🏠 四国中央市 帰宅</span>
@@ -390,16 +388,12 @@ function initKyushuMap() {
   ds.route({ origin: stops[3].pos, destination: stops[4].pos, travelMode: google.maps.TravelMode.DRIVING },
     (res, stat) => { if (stat === 'OK') new google.maps.DirectionsRenderer({ map, directions: res, suppressMarkers: true, polylineOptions: { strokeColor: '#ef4444', strokeWeight: 4 } }); });
 
-  // ⑤ 阿蘇 → やまなみ → 湯布院 → 熊本（ティール実線：レンタカー）
+  // ⑤ 阿蘇 → 熊本（JR豊肥本線：緑破線）
   ds.route({
     origin: stops[4].pos,
     destination: stops[5].pos,
-    waypoints: [
-      { location: { lat: 33.2167, lng: 131.1167 }, stopover: false }, // やまなみ中間
-      { location: { lat: 33.2800, lng: 131.0600 }, stopover: true },  // 湯布院
-    ],
     travelMode: google.maps.TravelMode.DRIVING
-  }, (res, stat) => { if (stat === 'OK') new google.maps.DirectionsRenderer({ map, directions: res, suppressMarkers: true, polylineOptions: { strokeColor: '#0d9488', strokeWeight: 4 } }); });
+  }, (res, stat) => { if (stat === 'OK') new google.maps.DirectionsRenderer({ map, directions: res, suppressMarkers: true, polylineOptions: dashIcon('#059669') }); });
 
   // ⑥ 熊本 → 新神戸（紫破線：新幹線）
   ds.route({ origin: stops[5].pos, destination: stops[6].pos, travelMode: google.maps.TravelMode.DRIVING },
@@ -470,13 +464,12 @@ function initKyushuMap() {
   </div>
 
   <div class="day-section">
-    <h4 style="color:#134e4a;">📅 7/31（金）草千里浜 ／ やまなみハイウェイ ／ 新幹線 熊本→新神戸 ／ 四国中央市帰還</h4>
+    <h4 style="color:#134e4a;">📅 7/31（金）草千里浜 ／ JR 宮地→熊本 ／ 新幹線 熊本→岡山 ／ 四国中央市帰還</h4>
     <div class="timeline">
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">早朝〜午前</div><div class="tl-text">🌋 草千里浜 散策</div><div class="tl-note">馬と一緒に写真 ｜ 阿蘇山上の絶景 ｜ 所要 約1.5h</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午前</div><div class="tl-text">🚗 やまなみハイウェイ 出発（レンタカー）</div><div class="tl-note">くじゅう連山の高原絶景 ｜ 黒川温泉 足湯立ち寄り可</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">昼頃</div><div class="tl-text">🌸 湯布院 立ち寄り（金鱗湖・アイスクリーム）</div><div class="tl-note">滞在 約1h</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">🚗 湯布院 → 熊本駅（約2h）</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">🚗 熊本駅 レンタカー返却</div><div class="tl-note">宮地→熊本の乗り捨て ｜ 同一県内のため追加料金少</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">早朝〜午前</div><div class="tl-text">🌋 草千里浜 散策</div><div class="tl-note">ホテルからタクシーで往復（約30〜40分・往復約3,000〜4,000円）｜ 所要 約1.5h</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午前</div><div class="tl-text">🏨 阿蘇ホテル チェックアウト → 宮地駅へ</div><div class="tl-note">ホテルからタクシー or 送迎で宮地駅へ（約15分）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">昼前〜午後</div><div class="tl-text">🚂 宮地駅 → 熊本駅（JR豊肥本線 約1h45分）</div><div class="tl-note">or あそぼーい!（運行日要確認）｜ 車窓から阿蘇の景色が楽しめる</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">🍱 熊本駅 構内で昼食・お土産</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夕方</div><div class="tl-text">🚄 熊本 → 岡山（新幹線 約2h）</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">🚃 岡山 → 四国中央市（マリンライナー+JR予讃線 約1.5h）</div><div class="tl-note">岡山→坂出（マリンライナー約1h）→伊予三島（JR予讃線約30分）</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">深夜前</div><div class="tl-text">🏠 四国中央市 帰宅</div></div>
@@ -559,8 +552,13 @@ function initKyushuMap() {
       </div>
       <div class="check-item">
         <div class="ico">🔲</div>
-        <div class="lbl"><strong>レンタカー（宮地→熊本 乗り捨て 7/30〜31）</strong><span>目安 約12,000〜18,000円</span></div>
-        <span class="tag tag-req">要予約</span>
+        <div class="lbl"><strong>タクシー（草千里浜 往復 7/31）</strong><span>ホテル→草千里浜→宮地駅 ｜ 目安 約5,000〜7,000円</span></div>
+        <span class="tag tag-req">要手配</span>
+      </div>
+      <div class="check-item">
+        <div class="ico">🔲</div>
+        <div class="lbl"><strong>JR（宮地→熊本 7/31）</strong><span>家族4名 ｜ 豊肥本線 約1h45分 ｜ 約4,000〜5,000円</span></div>
+        <span class="tag tag-req">要確認</span>
       </div>
       <div class="check-item">
         <div class="ico">🔲</div>
@@ -639,7 +637,8 @@ function initKyushuMap() {
     <div class="cost-row"><span>🔲 新幹線（新神戸→博多 家族4名）</span><span>約24,000円</span></div>
     <div class="cost-row"><span>🔲 新幹線（博多→熊本 家族4名）</span><span>約7,000円</span></div>
     <div class="cost-row"><span>🔲 あそぼーい!（熊本→宮地 家族4名）</span><span>約5,000〜7,000円</span></div>
-    <div class="cost-row"><span>🔲 レンタカー（宮地→熊本 乗り捨て 7/30〜31）</span><span>約12,000〜18,000円</span></div>
+    <div class="cost-row"><span>🔲 タクシー（草千里浜 往復 7/31）</span><span>約5,000〜7,000円</span></div>
+    <div class="cost-row"><span>🔲 JR（宮地→熊本 家族4名 7/31）</span><span>約4,000〜5,000円</span></div>
     <div class="cost-row"><span>🔲 新幹線（熊本→岡山 家族4名）</span><span>約28,000〜32,000円</span></div>
     <div class="cost-row"><span>🔲 岡山→四国中央市（マリンライナー+JR予讃線）</span><span>約8,000〜10,000円</span></div>
     <div class="cost-row"><span>🔲 羽田→成田 リムジンバス（父）</span><span>約3,200円</span></div>
@@ -649,7 +648,7 @@ function initKyushuMap() {
     <div class="cost-row"><span>🍽️ 食費・観光・お土産（馬刺し・赤牛・屋台含む）</span><span>約50,000〜80,000円</span></div>
     <div class="cost-row cost-total">
       <span>Phase 1 合計目安（家族フライト除く）</span>
-      <span class="amt">約395,000〜480,000円</span>
+      <span class="amt">約388,000〜468,000円</span>
     </div>
   </div>
   <div style="margin-top:12px;font-size:0.83rem;color:#6b7280;">
