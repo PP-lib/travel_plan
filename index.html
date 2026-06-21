@@ -308,8 +308,9 @@
   <div class="section-title">🗺️ 九州内 移動ルートマップ</div>
   <div style="background:white;border-radius:14px;padding:20px 24px;box-shadow:0 2px 10px rgba(0,0,0,0.07);">
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:0.82rem;">
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;border-top:3px dashed #7c3aed;display:inline-block;"></span>新幹線（神戸→博多）</span>
       <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;background:#f59e0b;display:inline-block;border-radius:2px;"></span>Day1 福岡観光</span>
-      <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;background:#3b82f6;display:inline-block;border-radius:2px;border-top:2px dashed #3b82f6;background:none;border-bottom:none;"></span>新幹線/バス</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;border-top:3px dashed #3b82f6;display:inline-block;"></span>新幹線/バス（博多→熊本）</span>
       <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;background:#ef4444;display:inline-block;border-radius:2px;"></span>Day2 レンタカー</span>
       <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;background:#0d9488;display:inline-block;border-radius:2px;"></span>Day3 阿蘇→臼杵</span>
       <span style="display:flex;align-items:center;gap:5px;"><span style="width:28px;height:4px;border-top:3px dashed #0d9488;display:inline-block;"></span>フェリー</span>
@@ -322,8 +323,8 @@
 <script>
 function initKyushuMap() {
   const map = new google.maps.Map(document.getElementById('kyushu-map'), {
-    center: { lat: 33.0, lng: 131.0 },
-    zoom: 8,
+    center: { lat: 33.8, lng: 132.5 },
+    zoom: 7,
     mapTypeId: 'roadmap',
     styles: [{ featureType: 'poi', stylers: [{ visibility: 'off' }] }]
   });
@@ -332,12 +333,13 @@ function initKyushuMap() {
   const dr = new google.maps.DirectionsRenderer({ suppressMarkers: true, map });
 
   const stops = [
-    { pos: { lat: 33.5898, lng: 130.4208 }, label: '①', title: '福岡駅前\n🤝 友人と合流', color: '#f59e0b', day: 'Day1 (7/29)' },
-    { pos: { lat: 33.6261, lng: 130.5138 }, label: '②', title: '海の中道\n🐠 マリンワールド', color: '#f97316', day: 'Day1 (7/29)' },
-    { pos: { lat: 32.8006, lng: 130.7079 }, label: '③', title: '熊本城\n🏯 馬刺し・赤牛', color: '#ef4444', day: 'Day2 (7/30)' },
-    { pos: { lat: 32.8832, lng: 131.0865 }, label: '④', title: '阿蘇（草千里浜）\n🌋 🏨 ホテル泊', color: '#dc2626', day: 'Day2-3' },
-    { pos: { lat: 33.1254, lng: 131.8061 }, label: '⑤', title: '臼杵港\n⛴️ フェリー乗り場', color: '#0d9488', day: 'Day3 (7/31)' },
-    { pos: { lat: 33.4629, lng: 132.4228 }, label: '⑥', title: '八幡浜港\n🏠 四国帰還', color: '#0d9488', day: 'Day3 (7/31)' },
+    { pos: { lat: 34.7025, lng: 135.1958 }, label: '①', title: '新神戸駅\n🚄 新幹線 出発', color: '#7c3aed', day: 'Day1 (7/29) 出発地' },
+    { pos: { lat: 33.5898, lng: 130.4208 }, label: '②', title: '福岡駅前\n🤝 友人と合流', color: '#f59e0b', day: 'Day1 (7/29)' },
+    { pos: { lat: 33.6261, lng: 130.5138 }, label: '③', title: '海の中道\n🐠 マリンワールド', color: '#f97316', day: 'Day1 (7/29)' },
+    { pos: { lat: 32.8006, lng: 130.7079 }, label: '④', title: '熊本城\n🏯 馬刺し・赤牛', color: '#ef4444', day: 'Day2 (7/30)' },
+    { pos: { lat: 32.8832, lng: 131.0865 }, label: '⑤', title: '阿蘇（草千里浜）\n🌋 🏨 ホテル泊', color: '#dc2626', day: 'Day2-3' },
+    { pos: { lat: 33.1254, lng: 131.8061 }, label: '⑥', title: '臼杵港\n⛴️ フェリー乗り場', color: '#0d9488', day: 'Day3 (7/31)' },
+    { pos: { lat: 33.4629, lng: 132.4228 }, label: '⑦', title: '八幡浜港\n🏠 四国帰還', color: '#0d9488', day: 'Day3 (7/31)' },
   ];
 
   stops.forEach(s => {
@@ -364,9 +366,23 @@ function initKyushuMap() {
     marker.addListener('click', () => iw.open(map, marker));
   });
 
-  // Day1: Fukuoka → Uminonakamichi (driving)
+  // 新神戸 → 博多（新幹線：driving で代替描画、紫破線）
   ds.route({
     origin: stops[0].pos, destination: stops[1].pos,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, (res, stat) => {
+    if (stat === 'OK') new google.maps.DirectionsRenderer({
+      map, directions: res, suppressMarkers: true,
+      polylineOptions: { strokeColor: '#7c3aed', strokeWeight: 4, icons: [{
+        icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 },
+        offset: '0', repeat: '12px'
+      }], strokeOpacity: 0 }
+    });
+  });
+
+  // Day1: 博多 → 海の中道（オレンジ実線）
+  ds.route({
+    origin: stops[1].pos, destination: stops[2].pos,
     travelMode: google.maps.TravelMode.DRIVING
   }, (res, stat) => {
     if (stat === 'OK') new google.maps.DirectionsRenderer({
@@ -375,9 +391,9 @@ function initKyushuMap() {
     });
   });
 
-  // Fukuoka → Kumamoto (transit/bus - drawn as driving route for visual)
+  // Day2: 博多 → 熊本（青破線：新幹線/バス）
   ds.route({
-    origin: stops[0].pos, destination: stops[2].pos,
+    origin: stops[1].pos, destination: stops[3].pos,
     travelMode: google.maps.TravelMode.DRIVING
   }, (res, stat) => {
     if (stat === 'OK') new google.maps.DirectionsRenderer({
@@ -389,9 +405,9 @@ function initKyushuMap() {
     });
   });
 
-  // Day2: Kumamoto → Aso (driving)
+  // Day2: 熊本 → 阿蘇（赤実線：レンタカー）
   ds.route({
-    origin: stops[2].pos, destination: stops[3].pos,
+    origin: stops[3].pos, destination: stops[4].pos,
     travelMode: google.maps.TravelMode.DRIVING
   }, (res, stat) => {
     if (stat === 'OK') new google.maps.DirectionsRenderer({
@@ -400,9 +416,9 @@ function initKyushuMap() {
     });
   });
 
-  // Day3: Aso → Usuki (driving)
+  // Day3: 阿蘇 → 臼杵（ティール実線：レンタカー）
   ds.route({
-    origin: stops[3].pos, destination: stops[4].pos,
+    origin: stops[4].pos, destination: stops[5].pos,
     travelMode: google.maps.TravelMode.DRIVING
   }, (res, stat) => {
     if (stat === 'OK') new google.maps.DirectionsRenderer({
@@ -411,10 +427,10 @@ function initKyushuMap() {
     });
   });
 
-  // Ferry: Usuki → Yawatahama (straight dashed line)
+  // フェリー: 臼杵 → 八幡浜（ティール破線：海路）
   new google.maps.Polyline({
     map,
-    path: [stops[4].pos, stops[5].pos],
+    path: [stops[5].pos, stops[6].pos],
     strokeColor: '#0d9488',
     strokeWeight: 4,
     strokeOpacity: 0,
