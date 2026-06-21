@@ -266,7 +266,8 @@
           <span class="pill pill-teal">🚗 やまなみハイウェイ</span>
           <span class="pill pill-teal">🌸 湯布院 立寄り</span>
           <span class="pill pill-teal">🚗 → 熊本駅 レンタカー返却</span>
-          <span class="pill pill-purple">🚄 熊本→新神戸 新幹線</span>
+          <span class="pill pill-purple">🚄 熊本→岡山 新幹線</span>
+          <span class="pill pill-green">🚃 マリンライナー→四国中央市</span>
           <span class="pill pill-green">🏠 四国中央市 帰宅</span>
         </div>
       </div>
@@ -339,8 +340,8 @@ function initKyushuMap() {
     { pos: { lat: 33.6261, lng: 130.5138 }, label: '③', title: '海の中道\n🐠 マリンワールド', color: '#f97316', day: 'Day1 (7/29)' },
     { pos: { lat: 32.8006, lng: 130.7079 }, label: '④', title: '熊本城\n🏯 馬刺し・赤牛', color: '#ef4444', day: 'Day2 (7/30)' },
     { pos: { lat: 32.8832, lng: 131.0865 }, label: '⑤', title: '阿蘇（草千里浜）\n🌋 🏨 ホテル泊', color: '#dc2626', day: 'Day2-3' },
-    { pos: { lat: 33.5898, lng: 130.4208 }, label: '⑥', title: '熊本駅\n🚄 新幹線で帰路', color: '#7c3aed', day: 'Day3 (7/31)' },
-    { pos: { lat: 34.7025, lng: 135.1958 }, label: '⑦', title: '新神戸駅\n→ 四国中央市へ', color: '#7c3aed', day: 'Day3 (7/31)' },
+    { pos: { lat: 32.7898, lng: 130.7417 }, label: '⑥', title: '熊本駅\n🚄 新幹線で帰路', color: '#7c3aed', day: 'Day3 (7/31)' },
+    { pos: { lat: 34.6551, lng: 133.9195 }, label: '⑦', title: '岡山駅\n🚃 マリンライナーへ乗換', color: '#7c3aed', day: 'Day3 (7/31)' },
   ];
 
   stops.forEach(s => {
@@ -476,8 +477,8 @@ function initKyushuMap() {
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">昼頃</div><div class="tl-text">🌸 湯布院 立ち寄り（金鱗湖・アイスクリーム）</div><div class="tl-note">滞在 約1h</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">🚗 湯布院 → 熊本駅（約2h）</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">午後</div><div class="tl-text">🚗 熊本駅 レンタカー返却</div><div class="tl-note">宮地→熊本の乗り捨て ｜ 同一県内のため追加料金少</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夕方</div><div class="tl-text">🚄 熊本 → 新神戸（新幹線 約1.5h）</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">🚄 新神戸 → 岡山（新幹線）→ マリンライナー → 四国中央市</div><div class="tl-note">新神戸から約2.5h ｜ または高速バスで帰宅</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夕方</div><div class="tl-text">🚄 熊本 → 岡山（新幹線 約2h）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">夜</div><div class="tl-text">🚃 岡山 → 四国中央市（マリンライナー+JR予讃線 約1.5h）</div><div class="tl-note">岡山→坂出（マリンライナー約1h）→伊予三島（JR予讃線約30分）</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">深夜前</div><div class="tl-text">🏠 四国中央市 帰宅</div></div>
     </div>
   </div>
@@ -563,12 +564,12 @@ function initKyushuMap() {
       </div>
       <div class="check-item">
         <div class="ico">🔲</div>
-        <div class="lbl"><strong>新幹線（熊本→新神戸 7/31）</strong><span>家族4名 ｜ 目安 約30,000〜36,000円</span></div>
+        <div class="lbl"><strong>新幹線（熊本→岡山 7/31）</strong><span>家族4名 ｜ 目安 約28,000〜32,000円</span></div>
         <span class="tag tag-req">要予約</span>
       </div>
       <div class="check-item">
         <div class="ico">🔲</div>
-        <div class="lbl"><strong>新神戸→四国中央市（7/31 夜）</strong><span>新幹線+マリンライナー or 高速バス ｜ 4名 約16,000〜20,000円</span></div>
+        <div class="lbl"><strong>岡山→四国中央市（7/31 夜）</strong><span>マリンライナー+JR予讃線 ｜ 4名 約8,000〜10,000円</span></div>
         <span class="tag tag-req">要予約</span>
       </div>
       <div class="check-item">
@@ -639,8 +640,8 @@ function initKyushuMap() {
     <div class="cost-row"><span>🔲 新幹線（博多→熊本 家族4名）</span><span>約7,000円</span></div>
     <div class="cost-row"><span>🔲 あそぼーい!（熊本→宮地 家族4名）</span><span>約5,000〜7,000円</span></div>
     <div class="cost-row"><span>🔲 レンタカー（宮地→熊本 乗り捨て 7/30〜31）</span><span>約12,000〜18,000円</span></div>
-    <div class="cost-row"><span>🔲 新幹線（熊本→新神戸 家族4名）</span><span>約30,000〜36,000円</span></div>
-    <div class="cost-row"><span>🔲 新神戸→四国中央市（新幹線+マリンライナー）</span><span>約16,000〜20,000円</span></div>
+    <div class="cost-row"><span>🔲 新幹線（熊本→岡山 家族4名）</span><span>約28,000〜32,000円</span></div>
+    <div class="cost-row"><span>🔲 岡山→四国中央市（マリンライナー+JR予讃線）</span><span>約8,000〜10,000円</span></div>
     <div class="cost-row"><span>🔲 羽田→成田 リムジンバス（父）</span><span>約3,200円</span></div>
     <div class="cost-row"><span>🔲 神戸 ホテル 1泊</span><span>約20,000〜30,000円</span></div>
     <div class="cost-row"><span>🔲 福岡 ホテル 1泊</span><span>約20,000〜35,000円</span></div>
