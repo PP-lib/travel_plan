@@ -590,9 +590,9 @@ function initKyushuMap() {
         <span class="tag tag-req">要予約</span>
       </div>
       <div class="check-item">
-        <div class="ico">🔲</div>
-        <div class="lbl"><strong>福岡 旅館（7/29 1泊）</strong><span>家族4名 ｜ 仮選定：二日市温泉 大丸別荘（博多から電車30分）｜ 会席料理付</span></div>
-        <span class="tag tag-req">要予約</span>
+        <div class="ico">✅</div>
+        <div class="lbl"><strong>福岡 ホテル日航福岡（7/29 1泊）</strong><span>予約番号 TED4D6BECB4EC ｜ ハリウッド・ツイン4名1室 ｜ ¥65,500（朝食付・現地決済）</span></div>
+        <span class="tag tag-done">予約済</span>
       </div>
       <div class="check-item">
         <div class="ico">🔲</div>
@@ -704,9 +704,9 @@ function initKyushuMap() {
           <div style="font-size:0.7rem;opacity:0.9;">長男の友達・屋台</div>
         </div>
         <div style="padding:10px 10px 12px;background:#fffbeb;">
-          <div style="color:#92400e;font-weight:700;font-size:0.8rem;">🏨 二日市温泉<br>大丸別荘</div>
-          <div style="color:#6b7280;font-size:0.75rem;margin-top:4px;">会席料理付・老舗旅館</div>
-          <div style="color:#6b7280;font-size:0.73rem;">博多から電車30分</div>
+          <div style="color:#92400e;font-weight:700;font-size:0.8rem;">🏨 ホテル日航福岡<br><span style="color:#059669;">✅ 予約済</span></div>
+          <div style="color:#6b7280;font-size:0.75rem;margin-top:4px;">¥65,500（4名1室）</div>
+          <div style="color:#6b7280;font-size:0.73rem;">博多駅徒歩3分・友達家族と同宿</div>
         </div>
       </div>
 
@@ -838,45 +838,48 @@ function initKyushuMap() {
     </div>
   </div>
 
-  <!-- 福岡（二日市温泉 大丸別荘） -->
-  <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:24px;">
-    <div style="background:linear-gradient(135deg,#d97706,#b45309);color:white;padding:16px 20px;display:flex;align-items:center;gap:14px;">
+  <!-- 福岡（ホテル日航福岡・予約済） -->
+  <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:24px;border:2px solid #059669;">
+    <div style="background:linear-gradient(135deg,#d97706,#b45309);color:white;padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
       <div style="background:rgba(255,255,255,0.2);border-radius:10px;padding:8px 14px;font-size:1.5rem;font-weight:900;">福岡</div>
       <div>
-        <div style="font-size:1.05rem;font-weight:800;">二日市温泉 大丸別荘</div>
-        <div style="font-size:0.82rem;opacity:0.85;margin-top:2px;">7/29（水）1泊 ／ 老舗旅館・会席料理</div>
+        <div style="font-size:1.05rem;font-weight:800;">ホテル日航福岡</div>
+        <div style="font-size:0.82rem;opacity:0.85;margin-top:2px;">7/29（水）1泊 ／ 長男の友達家族と同宿</div>
       </div>
-      <a href="https://www.daimarubesso.com/" target="_blank" style="margin-left:auto;background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.4);border-radius:8px;padding:6px 14px;font-size:0.8rem;text-decoration:none;white-space:nowrap;">公式サイト ↗</a>
+      <span style="background:#059669;color:white;border-radius:6px;padding:4px 12px;font-size:0.8rem;font-weight:700;">✅ 予約済</span>
+      <a href="https://www.hotelnikko-fukuoka.com/" target="_blank" style="margin-left:auto;background:rgba(255,255,255,0.2);color:white;border:1px solid rgba(255,255,255,0.4);border-radius:8px;padding:6px 14px;font-size:0.8rem;text-decoration:none;white-space:nowrap;">公式サイト ↗</a>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;">
-      <img src="https://www.daimarubesso.com/assets/image/rooms/rooms_visual.jpg" alt="外観" style="width:100%;height:180px;object-fit:cover;">
-      <img src="https://www.daimarubesso.com/assets/image/rooms/rooms_pict1_1.jpg" alt="客室" style="width:100%;height:180px;object-fit:cover;border-left:2px solid white;">
-      <img src="https://www.daimarubesso.com/assets/image/hotspring/hotspring_visual.jpg" alt="温泉" style="width:100%;height:180px;object-fit:cover;border-left:2px solid white;">
-      <img src="https://www.daimarubesso.com/assets/image/hotspring/hotspring_slide1_1.jpg" alt="大浴場" style="width:100%;height:180px;object-fit:cover;border-left:2px solid white;">
+    <div style="background:#f0fdf4;padding:12px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:0.82rem;border-bottom:1px solid #d1fae5;">
+      <div><span style="color:#065f46;font-weight:700;">予約番号：</span>TED4D6BECB4EC</div>
+      <div><span style="color:#065f46;font-weight:700;">部屋：</span>ハリウッド・ツイン（禁煙）</div>
+      <div><span style="color:#065f46;font-weight:700;">プラン：</span>SAVER 朝食付き シンプルステイ</div>
+      <div><span style="color:#065f46;font-weight:700;">人数：</span>4名（大人2・子供2）1室</div>
+      <div><span style="color:#065f46;font-weight:700;">合計：</span>¥65,500（現地決済）</div>
+      <div><span style="color:#065f46;font-weight:700;">IN/OUT：</span>7/29 15:00 → 7/30</div>
     </div>
     <div style="padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
       <div style="background:#fffbeb;border-radius:8px;padding:12px;">
         <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">📍 アクセス</div>
-        <div style="font-size:0.85rem;">JR博多駅から電車約30分<br>二日市駅・西鉄二日市駅</div>
+        <div style="font-size:0.85rem;">JR博多駅 博多口より<br>徒歩約3分</div>
       </div>
       <div style="background:#fffbeb;border-radius:8px;padding:12px;">
-        <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">🏛 歴史</div>
-        <div style="font-size:0.85rem;">創業慶応元年（1865年）<br>3,500坪の日本庭園</div>
+        <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">🍽 夕食</div>
+        <div style="font-size:0.85rem;">プランは朝食付き<br>夜は屋台 or 外食で調整</div>
       </div>
       <div style="background:#fffbeb;border-radius:8px;padding:12px;">
-        <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">♨️ 温泉</div>
-        <div style="font-size:0.85rem;">万葉集に詠まれた名湯<br>広大な大浴場「次田の湯」</div>
+        <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">🥐 朝食</div>
+        <div style="font-size:0.85rem;">和洋ビュッフェ<br>（プランに含む）</div>
       </div>
       <div style="background:#fffbeb;border-radius:8px;padding:12px;">
-        <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">🍽 食事</div>
-        <div style="font-size:0.85rem;">旬の食材を活かした<br>繊細な会席料理（個室）</div>
+        <div style="font-size:0.75rem;color:#d97706;font-weight:700;margin-bottom:4px;">☎️ 連絡先</div>
+        <div style="font-size:0.85rem;">092-482-1111<br>博多駅前2-18-25</div>
       </div>
     </div>
     <div style="margin:0 20px 8px;background:#fef3c7;border-radius:8px;padding:12px 14px;font-size:0.82rem;color:#92400e;border-left:3px solid #d97706;">
-      ⚠️ <strong>プランのポイント：</strong>旅館の夕食（会席）が含まれるため、博多の屋台での夕食とは両立しにくいです。「Marine World → 夕方まで博多観光 → 19時頃二日市へ移動」として旅館の会席を楽しむか、屋台優先ならホテルを別途検討するかご確認ください。
+      👨‍👩‍👧‍👦 <strong>長男の友達家族と同宿：</strong>両家族で子供合計5人。夕食は子供たちが楽しめるビュッフェ店の予約 or 中洲屋台を検討。キャンセルは宿泊2日前まで無料。
     </div>
     <div style="padding:8px 20px 16px;font-size:0.82rem;color:#4a5568;">
-      💡 <strong>なぜ大丸別荘か：</strong>グランディア芳泉と同格の老舗高級旅館。じゃらん・口コミ評価ともに最高ランク。温泉・庭園・会席の三拍子が揃い、同等のサービス水準が期待できます。TEL: 092-924-3939
+      💡 <strong>ポイント：</strong>博多駅徒歩3分の大型シティホテル。翌朝の海の中道方面（JR香椎線）への移動にも便利。宿泊税は現地払い（1人150円）。
     </div>
   </div>
 
