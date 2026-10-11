@@ -22,6 +22,7 @@ travel_plan/
     │   └── retrospective.md          … 振り返り（持ち物哲学・教訓）
     └── 2027-spring-lebaran/
         ├── plan.html                 … 計画（フライト・行程・休日マップ・30日カレンダー・手配リスト）
+        ├── tokyo.html                … 東京内 詳細乗り継ぎマップ（別ページ）
         └── retrospective.md          … 振り返り（旅行後に記入）
 ```
 

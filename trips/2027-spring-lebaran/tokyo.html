@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>東京 詳細乗り継ぎマップ｜2027春 レバラン休暇</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f0f4f8; color: #1a202c; }
+
+  .hero { background: linear-gradient(135deg, #0f766e 0%, #14b8a6 60%, #0e4f4a 100%); color: white; padding: 36px 40px 28px; }
+  .hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: 0.05em; }
+  .hero .sub { font-size: 1rem; opacity: 0.9; margin-top: 6px; }
+  .hero .meta { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .hero .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 5px 14px; font-size: 0.85rem; }
+  .hero a { color: #ccfbf1; }
+
+  .section { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-title { font-size: 1.3rem; font-weight: 700; color: #0f766e; border-left: 5px solid #0f766e; padding-left: 14px; margin-bottom: 22px; }
+
+  .warn-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.88rem; color: #9a3412; }
+  .warn-box strong { display: block; margin-bottom: 4px; }
+  .info-box { background: #ecfeff; border: 1px solid #a5f3fc; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.88rem; color: #155e75; }
+  .info-box strong { display: block; margin-bottom: 4px; }
+
+  .tbl-box { background: white; border-radius: 14px; overflow-x: auto; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+  .tbl-box table { width: 100%; min-width: 720px; border-collapse: collapse; }
+  .tbl-box thead { background: #0f766e; color: white; }
+  .tbl-box thead th { padding: 12px 16px; text-align: left; font-size: 0.85rem; font-weight: 600; }
+  .tbl-box tbody tr:nth-child(even) { background: #f7f9fc; }
+  .tbl-box tbody td { padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  .badge-done { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-todo { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-tbd  { background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+
+  /* ---- Month calendar ---- */
+  .cal-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 1000px) { .cal-wrap { grid-template-columns: 1fr; } }
+  .month { background: white; border-radius: 14px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .month h3 { font-size: 1.05rem; font-weight: 800; color: #0f766e; margin-bottom: 12px; }
+  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .cal .dow { text-align: center; font-size: 0.72rem; font-weight: 700; color: #6b7280; padding: 4px 0; }
+  .cal .dow.sun { color: #b91c1c; } .cal .dow.sat { color: #1d4ed8; }
+  .d { min-height: 64px; border-radius: 9px; padding: 5px 6px; font-size: 0.72rem; line-height: 1.3; background: #f8fafc; border: 1px solid #e5e7eb; position: relative; }
+  .d .n { font-weight: 800; font-size: 0.95rem; display: block; margin-bottom: 2px; color: #374151; }
+  .d.out { opacity: 0.35; }
+  .d.wknd { background: #f1f5f9; }
+  .d.hol { background: #fee2e2; border-color: #fca5a5; } .d.hol .n { color: #991b1b; }
+  .d.cb  { background: #ffedd5; border-color: #fdba74; } .d.cb .n { color: #9a3412; }
+  .d.jp  { background: #fce7f3; border-color: #f9a8d4; } .d.jp .n { color: #9d174d; }
+  .d.inwin { box-shadow: inset 0 0 0 2px #14b8a6; }
+  .d.phaseA::after { content: 'A'; position: absolute; top: 4px; right: 5px; font-size: 0.65rem; font-weight: 800; color: white; background: #0f766e; border-radius: 6px; padding: 0 5px; }
+  .d.phaseB::after { content: 'B'; position: absolute; top: 4px; right: 5px; font-size: 0.65rem; font-weight: 800; color: white; background: #6366f1; border-radius: 6px; padding: 0 5px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: #4a5568; margin-top: 14px; }
+  .legend span::before { content: ''; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -2px; border: 1px solid #cbd5e0; }
+  .lg-hol::before { background: #fee2e2 !important; } .lg-cb::before { background: #ffedd5 !important; } .lg-jp::before { background: #fce7f3 !important; } .lg-win::before { box-shadow: inset 0 0 0 2px #14b8a6; background: white !important; }
+
+  /* ---- Phase cards ---- */
+  .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .phase-grid { grid-template-columns: 1fr; } }
+  .phase { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .phase .ph-head { padding: 16px 20px; color: white; }
+  .ph-a .ph-head { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+  .ph-b .ph-head { background: linear-gradient(135deg, #4338ca, #818cf8); }
+  .phase .ph-head h3 { font-size: 1.1rem; font-weight: 800; }
+  .phase .ph-head .dates { font-size: 0.85rem; opacity: 0.9; margin-top: 3px; }
+  .phase .ph-body { padding: 16px 20px 20px; font-size: 0.9rem; line-height: 1.7; color: #374151; }
+  .phase .ph-body ul { padding-left: 1.3rem; }
+
+  /* ---- Destination compare ---- */
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .dest { background: white; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); border-top: 5px solid #0f766e; }
+  .dest h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+  .dest .pro, .dest .con { font-size: 0.85rem; line-height: 1.6; margin-top: 6px; }
+  .dest .pro { color: #065f46; } .dest .con { color: #9a3412; }
+  .dest .fit { margin-top: 10px; font-size: 0.8rem; color: #6b7280; }
+
+  /* ---- Checklist ---- */
+  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .checklist-grid { grid-template-columns: 1fr; } }
+  .check-card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .check-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.88rem; }
+  .check-item:last-child { border-bottom: none; }
+  .check-item .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .check-item .lbl { flex: 1; }
+  .check-item .lbl strong { display: block; }
+  .check-item .lbl span { color: #6b7280; font-size: 0.82rem; }
+  .tag { padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+  .tag-done { background: #d1fae5; color: #065f46; }
+  .tag-req  { background: #fef3c7; color: #92400e; }
+  .tag-tbd  { background: #e0e7ff; color: #3730a3; }
+
+  .cost-box { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .cost-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.9rem; }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-total { font-weight: 700; font-size: 1.1rem; color: #0f766e; }
+  .cost-total .amt { font-size: 1.4rem; }
+
+  .note { background: white; border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); font-size: 0.9rem; color: #374151; line-height: 1.8; }
+  .note ul { padding-left: 1.3rem; }
+  .route { display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch; margin-bottom: 20px; }
+  .route .stop { background: white; border-radius: 12px; padding: 12px 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); min-width: 170px; flex: 1; border-top: 5px solid #0f766e; }
+  .route .stop.b { border-top-color: #6366f1; }
+  .route .stop .when { font-size: 0.75rem; color: #6b7280; font-weight: 700; }
+  .route .stop .where { font-size: 1.05rem; font-weight: 800; color: #1a202c; margin: 2px 0; }
+  .route .stop .what { font-size: 0.82rem; color: #4a5568; line-height: 1.5; }
+  .route .arrow { align-self: center; font-size: 1.4rem; color: #94a3b8; }
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .opt-grid { grid-template-columns: 1fr; } }
+  .opt { background: white; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); font-size: 0.88rem; line-height: 1.7; }
+  .opt h4 { font-size: 0.95rem; font-weight: 800; color: #0f766e; margin-bottom: 6px; }
+  #tmap { height: 72vh; min-height: 480px; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); background: #e5e7eb; }
+  @media (max-width: 700px) { #tmap { height: 400px; } }
+  .map-legend .ln.d6 { border-color: #1d4ed8; } .map-legend .ln.d7 { border-color: #059669; } .map-legend .ln.d8 { border-color: #7c3aed; } .map-legend .ln.d9 { border-color: #ea580c; } .map-legend .ln.d10 { border-color: #475569; }
+  .num-icon.d6 { background: #1d4ed8; } .num-icon.d7 { background: #059669; } .num-icon.d8 { background: #7c3aed; } .num-icon.d9 { background: #ea580c; } .num-icon.d10 { background: #475569; }
+  .num-icon.sm { width: 22px; height: 22px; line-height: 22px; font-size: 0.72rem; }
+  #map { height: 560px; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); background: #e5e7eb; }
+  @media (max-width: 700px) { #map { height: 420px; } }
+  .map-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.82rem; color: #4a5568; margin-top: 12px; align-items: center; }
+  .map-legend .ln { display: inline-block; width: 28px; height: 0; border-top: 4px solid; margin-right: 6px; vertical-align: middle; }
+  .map-legend .ln.a { border-color: #0f766e; }
+  .map-legend .ln.f { border-color: #f59e0b; border-top-style: dashed; }
+  .map-legend .ln.b { border-color: #6366f1; border-top-style: dotted; }
+  .map-btn { background: #0f766e; color: white; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; cursor: pointer; margin-left: auto; }
+  .num-icon { background: #0f766e; color: white; border-radius: 50%; width: 26px; height: 26px; line-height: 26px; text-align: center; font-weight: 800; font-size: 0.8rem; border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+  .num-icon.f { background: #f59e0b; } .num-icon.b { background: #6366f1; } .num-icon.g { background: #6b7280; }
+  .footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 0.8rem; }
+  .src { font-size: 0.8rem; color: #6b7280; margin-top: 10px; line-height: 1.7; }
+  .src a { color: #0f766e; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🚇 東京内 詳細乗り継ぎマップ</h1>
+  <div class="sub">2027春 レバラン休暇 日本旅行｜3/6(土)〜3/10(水) の東京内の移動を駅単位で。</div>
+  <div class="meta">
+    <span class="badge">3/6 成田 → 池袋（サンシャインシティプリンス泊）</span>
+    <span class="badge">3/7〜3/9 浅草拠点</span>
+    <span class="badge">3/9 日光 日帰り</span>
+    <span class="badge">3/10 東京駅 → 静岡</span>
+    <span class="badge">← <a href="plan.html">計画ページへ戻る</a></span>
+  </div>
+</div>
+
+<!-- ======= TOKYO TRANSIT MAP ======= -->
+<div class="section">
+  <div class="section-title">🚇 地図（クリックで乗換の詳細）</div>
+  <div id="tmap"></div>
+  <div class="map-legend">
+    <span><span class="ln d6"></span>3/6 成田 → 池袋</span>
+    <span><span class="ln d7"></span>3/7 池袋 → 浅草 ⇄ 上野</span>
+    <span><span class="ln d8"></span>3/8 浅草 → 新宿 → 原宿 → 浅草</span>
+    <span><span class="ln d9"></span>3/9 浅草 ⇄ 日光（東武）</span>
+    <span><span class="ln d10"></span>3/10 浅草 → 東京駅 → 静岡</span>
+  </div>
+  <div style="font-size:0.8rem;color:#6b7280;margin-top:8px;margin-bottom:20px;">線は駅間を直線で結んだ概略。マーカーをクリックすると乗換の詳細が出ます。</div>
+
+  <div class="tbl-box">
+    <table>
+      <thead><tr><th>日付</th><th>区間</th><th>路線・手段</th><th>所要</th><th>運賃目安（大人1人）</th><th>メモ</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="2">3/6(土)</td><td>成田空港 T1 → サンシャインシティプリンスホテル</td><td><b>リムジンバス</b>（ホテル前直行）</td><td>約110〜130分</td><td>3,400円（子供半額）</td><td>荷物が多い到着日向き。16時台発 → 18時頃着。事前予約推奨</td></tr>
+        <tr><td>（代替）成田空港 → 日暮里 → 池袋</td><td>京成スカイライナー → JR山手線</td><td>36分 ＋ 10分</td><td>2,580円 ＋ 170円</td><td>渋滞が心配なときはこちら。池袋駅東口から徒歩8分</td></tr>
+        <tr><td rowspan="4">3/7(日)</td><td>池袋 → 上野</td><td>JR山手線（外回り）</td><td>16分</td><td>170円</td><td>朝 9時頃チェックアウト。荷物を持って移動</td></tr>
+        <tr><td>上野 → 浅草</td><td>東京メトロ銀座線</td><td>5分</td><td>180円</td><td>浅草のホテルに荷物を預ける（浅草駅から徒歩5〜8分）</td></tr>
+        <tr><td>浅草 → 上野（国立博物館）</td><td>銀座線 ＋ 徒歩10分</td><td>約15分</td><td>180円</td><td>博物館は上野公園内。9:30 開館、日曜は早めに</td></tr>
+        <tr><td>上野 → 浅草</td><td>銀座線</td><td>5分</td><td>180円</td><td>午後は浅草寺・仲見世、夜はライトアップ</td></tr>
+        <tr><td rowspan="3">3/8(月)</td><td>浅草 → 新宿（マップカメラ）</td><td>銀座線 浅草 → 神田 ／ JR中央線快速 神田 → 新宿</td><td>約30分</td><td>180円 ＋ 220円</td><td>新宿駅西口から徒歩5分。10:30 開店</td></tr>
+        <tr><td>新宿 → 原宿（Fender）</td><td>JR山手線（内回り）2駅</td><td>4分</td><td>150円</td><td>原宿駅から明治通り沿いに徒歩8分（明治神宮前駅なら5分）</td></tr>
+        <tr><td>原宿 → 浅草</td><td>JR山手線 原宿 → 上野 ／ 銀座線 上野 → 浅草</td><td>約35分</td><td>210円 ＋ 180円</td><td>夕方。帰りに宅急便の荷造り</td></tr>
+        <tr><td rowspan="2">3/9(火)</td><td>浅草（東武）→ 東武日光</td><td><b>東武特急 スペーシア X／けごん</b>（全席指定）</td><td>約1時間50分</td><td>約3,000円（運賃＋特急料金）</td><td>8時台発。「トブチケ！」で1か月前から。東武浅草駅は銀座線浅草駅と直結</td></tr>
+        <tr><td>東武日光 → 浅草</td><td>東武特急</td><td>約1時間50分</td><td>約3,000円</td><td>15〜16時台発。日光駅 ⇄ 東照宮は世界遺産めぐりバス 10分</td></tr>
+        <tr><td rowspan="2">3/10(水)</td><td>浅草 → 東京駅</td><td>銀座線 浅草 → 神田 ／ JR山手線 神田 → 東京</td><td>約20分</td><td>180円 ＋ 150円</td><td>9時頃出発。東京駅は八重洲側の新幹線改札へ</td></tr>
+        <tr><td>東京 → 静岡</td><td>東海道新幹線 ひかり</td><td>約60分</td><td>約6,300円（指定席）</td><td>乗車券は東京 → 伊予三島を通しで購入し清水で途中下車</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:0.8rem;color:#6b7280;margin-top:8px;">運賃は 2026年10月時点の目安（IC 運賃・大人）。子供（小学生）は原則半額。Suica／PASMO か モバイルSuica を全員分用意すると乗換がスムーズ。</div>
+</div>
+<script>
+(function(){
+  if (typeof L === 'undefined') return;
+  var T = {
+    nrt: [35.7720, 140.3929], nippori: [35.7281, 139.7707],
+    sunshine: [35.7290, 139.7187], ikebukuro: [35.7295, 139.7109],
+    ueno: [35.7138, 139.7770], tnm: [35.7188, 139.7765],
+    asakusa: [35.7110, 139.7973], asakusaHotel: [35.7152, 139.7922], sensoji: [35.7148, 139.7967],
+    kanda: [35.6918, 139.7709], shinjuku: [35.6896, 139.7006], mapcam: [35.6922, 139.6985],
+    harajuku: [35.6702, 139.7027], fender: [35.6690, 139.7052],
+    tokyo: [35.6812, 139.7671], nikkoDir: [35.7600, 139.8300]
+  };
+  var map = L.map('tmap', { scrollWheelZoom: false });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  var C = { d6: '#1d4ed8', d7: '#059669', d8: '#7c3aed', d9: '#ea580c', d10: '#475569' };
+  L.polyline([T.nrt, T.sunshine], { color: C.d6, weight: 4, opacity: 0.8 }).addTo(map).bindPopup('3/6 リムジンバス 成田 → サンシャインシティプリンス 約2時間');
+  L.polyline([T.sunshine, T.ikebukuro, T.ueno, T.asakusa, T.asakusaHotel], { color: C.d7, weight: 4, opacity: 0.85 }).addTo(map).bindPopup('3/7 朝 山手線 池袋 → 上野 ＋ 銀座線 上野 → 浅草');
+  L.polyline([T.asakusaHotel, T.asakusa, T.ueno, T.tnm], { color: C.d7, weight: 3, opacity: 0.85, dashArray: '6 6' }).addTo(map).bindPopup('3/7 銀座線で上野 ⇄ 浅草（往復）');
+  L.polyline([T.asakusa, T.kanda, T.shinjuku, T.mapcam], { color: C.d8, weight: 4, opacity: 0.85 }).addTo(map).bindPopup('3/8 銀座線 浅草 → 神田 ＋ 中央線快速 神田 → 新宿');
+  L.polyline([T.shinjuku, T.harajuku, T.fender], { color: C.d8, weight: 4, opacity: 0.85 }).addTo(map).bindPopup('3/8 山手線 新宿 → 原宿 ＋ 徒歩');
+  L.polyline([T.harajuku, T.ueno, T.asakusa], { color: C.d8, weight: 3, opacity: 0.85, dashArray: '6 6' }).addTo(map).bindPopup('3/8 山手線 原宿 → 上野 ＋ 銀座線 → 浅草');
+  L.polyline([T.asakusa, T.nikkoDir], { color: C.d9, weight: 4, opacity: 0.85, dashArray: '10 8' }).addTo(map).bindPopup('3/9 東武特急 浅草 ⇄ 東武日光（北へ約1時間50分）');
+  L.polyline([T.asakusa, T.kanda, T.tokyo], { color: C.d10, weight: 4, opacity: 0.85 }).addTo(map).bindPopup('3/10 銀座線 ＋ 山手線で東京駅 → 新幹線');
+  var pts = [
+    ['A', 'd6', T.sunshine, '3/6 泊', 'サンシャインシティプリンスホテル／ポケモンセンター メガトウキョー（アルパ 2F）'],
+    ['B', 'd7', T.ikebukuro, '3/7 朝', '池袋駅：JR山手線 外回り（上野方面）'],
+    ['C', 'd7', T.ueno, '3/7', '上野駅：山手線 ⇄ 銀座線 乗換（徒歩3分）'],
+    ['D', 'd7', T.asakusaHotel, '3/7〜3/9 3泊', '浅草のホテル（浅草ビューホテル 第一候補）'],
+    ['E', 'd7', T.tnm, '3/7 午前', '東京国立博物館（上野駅 公園口から徒歩10分）'],
+    ['F', 'd7', T.sensoji, '3/7 午後・夜', '浅草寺・仲見世'],
+    ['G', 'd8', T.kanda, '3/8・3/10', '神田駅：銀座線 → JR 乗換（徒歩3分）'],
+    ['H', 'd8', T.mapcam, '3/8 午前', 'マップカメラ（新宿駅 西口 徒歩5分）'],
+    ['I', 'd8', T.fender, '3/8 午後', 'Fender Flagship Tokyo（原宿駅 徒歩8分／明治神宮前駅 5分）'],
+    ['J', 'd9', T.asakusa, '3/9・3/10', '東武浅草駅（特急ホーム）／ 銀座線 浅草駅'],
+    ['K', 'd10', T.tokyo, '3/10 朝', '東京駅：八重洲側 新幹線改札 → ひかり 静岡行き']
+  ];
+  pts.forEach(function(st){
+    var icon = L.divIcon({ className: '', html: '<div class="num-icon sm ' + st[1] + '">' + st[0] + '</div>', iconSize: [22, 22], iconAnchor: [11, 11] });
+    L.marker(st[2], { icon: icon }).addTo(map).bindPopup('<b>' + st[3] + '</b><br>' + st[4]);
+  });
+  map.fitBounds(L.latLngBounds([T.fender, T.sunshine, T.asakusa, T.nikkoDir]).pad(0.08));
+})();
+</script>
+
+
+<div class="footer">
+  米井家 2027春 レバラン休暇 ｜ 東京 詳細乗り継ぎマップ ｜ <a href="plan.html" style="color:#0f766e;">計画ページ</a> ｜ 最終更新：2026年10月11日
+</div>
+
+</body>
+</html>
