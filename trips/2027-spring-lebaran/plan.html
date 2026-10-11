@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027春 レバラン休暇 日本旅行 計画｜米井家</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f0f4f8; color: #1a202c; }
+
+  .hero { background: linear-gradient(135deg, #0f766e 0%, #14b8a6 60%, #0e4f4a 100%); color: white; padding: 36px 40px 28px; }
+  .hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: 0.05em; }
+  .hero .sub { font-size: 1rem; opacity: 0.9; margin-top: 6px; }
+  .hero .meta { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .hero .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 5px 14px; font-size: 0.85rem; }
+  .hero a { color: #ccfbf1; }
+
+  .section { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-title { font-size: 1.3rem; font-weight: 700; color: #0f766e; border-left: 5px solid #0f766e; padding-left: 14px; margin-bottom: 22px; }
+
+  .warn-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.88rem; color: #9a3412; }
+  .warn-box strong { display: block; margin-bottom: 4px; }
+  .info-box { background: #ecfeff; border: 1px solid #a5f3fc; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.88rem; color: #155e75; }
+  .info-box strong { display: block; margin-bottom: 4px; }
+
+  .tbl-box { background: white; border-radius: 14px; overflow-x: auto; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+  .tbl-box table { width: 100%; min-width: 720px; border-collapse: collapse; }
+  .tbl-box thead { background: #0f766e; color: white; }
+  .tbl-box thead th { padding: 12px 16px; text-align: left; font-size: 0.85rem; font-weight: 600; }
+  .tbl-box tbody tr:nth-child(even) { background: #f7f9fc; }
+  .tbl-box tbody td { padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid #e8edf3; vertical-align: top; }
+  .badge-done { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-todo { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+  .badge-tbd  { background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 600; }
+
+  /* ---- Month calendar ---- */
+  .cal-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 1000px) { .cal-wrap { grid-template-columns: 1fr; } }
+  .month { background: white; border-radius: 14px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .month h3 { font-size: 1.05rem; font-weight: 800; color: #0f766e; margin-bottom: 12px; }
+  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .cal .dow { text-align: center; font-size: 0.72rem; font-weight: 700; color: #6b7280; padding: 4px 0; }
+  .cal .dow.sun { color: #b91c1c; } .cal .dow.sat { color: #1d4ed8; }
+  .d { min-height: 64px; border-radius: 9px; padding: 5px 6px; font-size: 0.72rem; line-height: 1.3; background: #f8fafc; border: 1px solid #e5e7eb; position: relative; }
+  .d .n { font-weight: 800; font-size: 0.95rem; display: block; margin-bottom: 2px; color: #374151; }
+  .d.out { opacity: 0.35; }
+  .d.wknd { background: #f1f5f9; }
+  .d.hol { background: #fee2e2; border-color: #fca5a5; } .d.hol .n { color: #991b1b; }
+  .d.cb  { background: #ffedd5; border-color: #fdba74; } .d.cb .n { color: #9a3412; }
+  .d.jp  { background: #fce7f3; border-color: #f9a8d4; } .d.jp .n { color: #9d174d; }
+  .d.inwin { box-shadow: inset 0 0 0 2px #14b8a6; }
+  .d.phaseA::after { content: 'A'; position: absolute; top: 4px; right: 5px; font-size: 0.65rem; font-weight: 800; color: white; background: #0f766e; border-radius: 6px; padding: 0 5px; }
+  .d.phaseB::after { content: 'B'; position: absolute; top: 4px; right: 5px; font-size: 0.65rem; font-weight: 800; color: white; background: #6366f1; border-radius: 6px; padding: 0 5px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: #4a5568; margin-top: 14px; }
+  .legend span::before { content: ''; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -2px; border: 1px solid #cbd5e0; }
+  .lg-hol::before { background: #fee2e2 !important; } .lg-cb::before { background: #ffedd5 !important; } .lg-jp::before { background: #fce7f3 !important; } .lg-win::before { box-shadow: inset 0 0 0 2px #14b8a6; background: white !important; }
+
+  /* ---- Phase cards ---- */
+  .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .phase-grid { grid-template-columns: 1fr; } }
+  .phase { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .phase .ph-head { padding: 16px 20px; color: white; }
+  .ph-a .ph-head { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+  .ph-b .ph-head { background: linear-gradient(135deg, #4338ca, #818cf8); }
+  .phase .ph-head h3 { font-size: 1.1rem; font-weight: 800; }
+  .phase .ph-head .dates { font-size: 0.85rem; opacity: 0.9; margin-top: 3px; }
+  .phase .ph-body { padding: 16px 20px 20px; font-size: 0.9rem; line-height: 1.7; color: #374151; }
+  .phase .ph-body ul { padding-left: 1.3rem; }
+
+  /* ---- Destination compare ---- */
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .dest { background: white; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); border-top: 5px solid #0f766e; }
+  .dest h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+  .dest .pro, .dest .con { font-size: 0.85rem; line-height: 1.6; margin-top: 6px; }
+  .dest .pro { color: #065f46; } .dest .con { color: #9a3412; }
+  .dest .fit { margin-top: 10px; font-size: 0.8rem; color: #6b7280; }
+
+  /* ---- Checklist ---- */
+  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .checklist-grid { grid-template-columns: 1fr; } }
+  .check-card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .check-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.88rem; }
+  .check-item:last-child { border-bottom: none; }
+  .check-item .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .check-item .lbl { flex: 1; }
+  .check-item .lbl strong { display: block; }
+  .check-item .lbl span { color: #6b7280; font-size: 0.82rem; }
+  .tag { padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+  .tag-done { background: #d1fae5; color: #065f46; }
+  .tag-req  { background: #fef3c7; color: #92400e; }
+  .tag-tbd  { background: #e0e7ff; color: #3730a3; }
+
+  .cost-box { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .cost-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.9rem; }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-total { font-weight: 700; font-size: 1.1rem; color: #0f766e; }
+  .cost-total .amt { font-size: 1.4rem; }
+
+  .note { background: white; border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); font-size: 0.9rem; color: #374151; line-height: 1.8; }
+  .note ul { padding-left: 1.3rem; }
+  .route { display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch; margin-bottom: 20px; }
+  .route .stop { background: white; border-radius: 12px; padding: 12px 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); min-width: 170px; flex: 1; border-top: 5px solid #0f766e; }
+  .route .stop.b { border-top-color: #6366f1; }
+  .route .stop .when { font-size: 0.75rem; color: #6b7280; font-weight: 700; }
+  .route .stop .where { font-size: 1.05rem; font-weight: 800; color: #1a202c; margin: 2px 0; }
+  .route .stop .what { font-size: 0.82rem; color: #4a5568; line-height: 1.5; }
+  .route .arrow { align-self: center; font-size: 1.4rem; color: #94a3b8; }
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .opt-grid { grid-template-columns: 1fr; } }
+  .opt { background: white; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); font-size: 0.88rem; line-height: 1.7; }
+  .opt h4 { font-size: 0.95rem; font-weight: 800; color: #0f766e; margin-bottom: 6px; }
+  .footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 0.8rem; }
+  .src { font-size: 0.8rem; color: #6b7280; margin-top: 10px; line-height: 1.7; }
+  .src a { color: #0f766e; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🇯🇵 2027春 レバラン休暇｜日本（東京 → 四国中央市）</h1>
+  <div class="sub">レバラン10連休に合わせて 3/6 早朝にジャカルタ発（NH836・成田着）。東京観光2日間（3/7・3/8）のあと 3/9 に四国中央市へ。父は 3/15 深夜（3/16 00:20 羽田発）に帰国、妻・長男・長女は 4/3 まで滞在。</div>
+  <div class="meta">
+    <span class="badge">📆 2027年3月6日(土) 〜 4月4日(日)早朝着｜30日間</span>
+    <span class="badge">👨‍👩‍👧‍👦 父・妻・長男・長女（父は 3/15 帰国）</span>
+    <span class="badge">📍 東京（品川プリンス）→ 四国中央市</span>
+    <span class="badge">🏷️ 計画中｜往路・父復路・家族復路 発券済</span>
+    <span class="badge">← <a href="../../index.html">旅行一覧へ</a></span>
+  </div>
+</div>
+
+<!-- ======= FLIGHTS ======= -->
+<div class="section">
+  <div class="section-title">✈️ フライト情報</div>
+  <div class="tbl-box">
+    <table>
+      <thead><tr><th>区間</th><th>便名</th><th>路線</th><th>出発</th><th>到着</th><th>クラス</th><th>搭乗者</th><th>予約番号</th><th>手荷物</th><th>状態</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>往路</td><td class="flight-num">NH836</td><td>CGK T3 → NRT T1（成田）</td><td>3/6(土) 06:20</td><td>3/6(土) 15:40</td><td>M (Y)</td><td>長男（座席 30A・小児運賃）。父・妻・長女は要確認</td><td>5H7LFY</td><td>2PC</td><td><span class="badge-done">✅ 発券済</span></td>
+        </tr>
+        <tr>
+          <td>復路 父</td><td class="flight-num">NH871</td><td>HND T2 → CGK T3</td><td>3/16(火) 00:20</td><td>3/16(火) 06:00</td><td>X (Y)</td><td>父のみ（座席 23C）</td><td>F5PXDF</td><td>2PC</td><td><span class="badge-done">✅ 発券済</span></td>
+        </tr>
+        <tr>
+          <td>復路 家族</td><td class="flight-num">NH871</td><td>HND → CGK（CGK 着 T3）</td><td>4/3(土) 23:30</td><td>4/4(日) 05:05</td><td>X (Y)</td><td>妻（長男・長女 要確認）</td><td>5GK8TD</td><td>2PC</td><td><span class="badge-done">✅ 発券済</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn-box">
+    <strong>⚠️ 往路は「3/5 夜便」ではなく「3/6 早朝便・成田着」で発券されている</strong>
+    当初計画は 3/5(金) 夜の羽田行きだったが、発券された NH836 は <b>3/6(土) 06:20 CGK 発 → 15:40 成田着</b>。チェックインは 04:00 頃、自宅を 03:00 前に出る。成田から品川までは成田エクスプレスで約1時間10分なので、ホテル着は 17:30 頃。東京観光は <b>3/7・3/8 の2日間</b>とし、四国中央市への移動を 3/9 にずらした（品川プリンス 3泊）。添付は長男1名分（予約 5H7LFY）。父・妻・長女が同じ予約に含まれているかを確認し、4名分の PDF を保存。
+  </div>
+  <div class="warn-box">
+    <strong>⚠️ 家族復路 NH871（5GK8TD）の確認事項</strong>
+    添付の e チケット（発行 2026/10/11、運賃 XKBP000W）は <b>妻1名分</b>。長男・長女が同じ予約番号に含まれているか、別の航空券番号があるかを ANA のサイトで確認し、<b>3名分の PDF をこのフォルダに保存</b>する。羽田の国際線ターミナルは便により異なる（T2 / T3）ので搭乗日当日に確認。
+  </div>
+  <div class="info-box">
+    <strong>💡 父の復路は NH871 で確定（3/15 の深夜便）</strong>
+    出発は日付上 <b>3/16(火) 00:20</b> なので、搭乗日は実質 3/15(月) の夜。羽田 <b>第2ターミナル</b> 発、チェックイン締切は 23:00 頃を目安に <b>3/15 中に高松 → 羽田</b> へ移動しておく。CGK 第3ターミナル 06:00 着、そのまま出社。家族便（4/3）とは発時刻が異なる（夏ダイヤ 23:30）ので取り違えに注意。
+  </div>
+</div>
+
+<!-- ======= ROUTE ======= -->
+<div class="section">
+  <div class="section-title">🗺️ 行程サマリー</div>
+  <div class="route">
+    <div class="stop"><div class="when">3/6(土) 06:20</div><div class="where">ジャカルタ CGK T3</div><div class="what">NH836 で出発。レバラン出国ラッシュ、04:00 チェックイン目安</div></div>
+    <div class="arrow">→</div>
+    <div class="stop"><div class="when">3/6(土) 15:40 成田着〜3/8(月)　3泊</div><div class="where">東京・品川</div><div class="what">品川プリンスホテル（シナプリ）拠点。3/7・3/8 の2日間 東京観光</div></div>
+    <div class="arrow">→</div>
+    <div class="stop"><div class="when">3/9(火)〜3/15(月)</div><div class="where">四国中央市</div><div class="what">3/9 移動。全員で滞在・親戚回り。3/15 夜 父 帰国（NH871）</div></div>
+    <div class="arrow">→</div>
+    <div class="stop b"><div class="when">3/16(火)〜4/2(金)</div><div class="where">四国中央市（家族のみ）</div><div class="what">妻・長男・長女。親戚宅拠点</div></div>
+    <div class="arrow">→</div>
+    <div class="stop b"><div class="when">4/3(土) 23:30</div><div class="where">羽田 → CGK</div><div class="what">NH871。4/4(日) 05:05 ジャカルタ着、父が迎え</div></div>
+  </div>
+
+  <div class="opt-grid">
+    <div class="opt">
+      <h4>🏙️ 東京3泊・観光2日間（3/7・3/8）たたき台</h4>
+      ・3/6(土)：15:40 成田着 → 成田エクスプレスで品川へ（約1時間10分、直通）→ 17:30 頃チェックイン。夜は品川周辺で夕食、アクアパーク品川（ホテル直結・夜も営業）なら移動なしで楽しめる。<br>
+      ・3/7(日)：東京観光①（終日）。日曜なので人気スポットは朝イチで。<br>
+      ・3/8(月)：東京観光②（終日）。平日で空いている。夜は翌日の移動に備えて早めにホテルへ。<br>
+      ・候補：マクセル アクアパーク品川（ホテル直結）／ チームラボ ／ 上野動物園・科学博物館 ／ 浅草・東京スカイツリー ／ 東京タワー。<br>
+      ・3月上旬はまだ寒い（5〜12℃）。<b>フリース必須</b>。桜はまだ早い。<br>
+      ・長男の日本の友達と会うなら東京か四国か、早めに親御さんへ連絡。
+    </div>
+    <div class="opt">
+      <h4>🚅 3/9(火) 東京 → 四国中央市 の移動（要決定）</h4>
+      <b>案1 飛行機</b>：羽田 09:30 NH533 → 高松 10:50（前回と同じ）。義父にピックアップを依頼、高松で妹家へ挨拶も可。所要 約4時間。<br>
+      <b>案2 新幹線</b>：東京 → 岡山（約3時間20分）→ 予讃線 特急で伊予三島（約1時間40分）。所要 約5.5時間。荷物が多いと乗り換えが負担。<br>
+      → 子供連れ・荷物を考えると <b>案1 が有力</b>。前回の反省どおり、レンタカーは必要な日だけ借りる。
+    </div>
+    <div class="opt">
+      <h4>👨 父 3/15(月) 帰国の動き（NH871 F5PXDF 発券済）</h4>
+      ・3/15 日中に高松 → 羽田（午後便で十分。要手配）。羽田で夕食を済ませ、<b>第2ターミナル</b>から 3/16 00:20 発。<br>
+      ・3/16 06:00 CGK T3 着 → 帰宅してシャワー → 出社。<br>
+      ・前回の反省：四国中央市 → 高松空港は約60分。朝イチ便でなくてよいので余裕あり。<br>
+      ・3/13〜14 はインドネシア側の Uターンラッシュだが、日本発の国際線には影響小。
+    </div>
+    <div class="opt">
+      <h4>👩‍👧‍👦 家族 4/3(土) 帰国の動き（要決定）</h4>
+      ・NH871 は羽田 23:30 発なので、<b>4/3 当日の高松 → 羽田便</b>（午前〜夕方）で間に合う。チェックインまで羽田で過ごす時間が長いので、荷物を預けて都内で夕食も可。<br>
+      ・または 4/2(金) に東京入りして1泊し、4/3 を東京で過ごしてから出発（桜の時期・子供の疲労が少ない）。<br>
+      ・4/4(日) 05:05 CGK 着 → 父が迎え。翌 4/5(月) 学校。
+    </div>
+  </div>
+</div>
+
+<!-- ======= HOLIDAYS ======= -->
+<div class="section">
+  <div class="section-title">🗓️ 休日・連休マップ（期間内）</div>
+
+  <div class="warn-box">
+    <strong>⚠️ レバランの日付は暫定</strong>
+    SKB 3大臣（2026年9月15日付）で 3/10(水)・3/11(木) が Idul Fitri 1448H の国民の休日、3/9(火)・3/12(金)・3/15(月) が cuti bersama と定められている。ただし <b>1 Syawal の最終確定は Sidang Isbat（宗教省）</b> で行われ、1日前後ずれる可能性がある。父の 3/15 帰国は cuti bersama 最終日なので、ずれても 3/16 出社に影響はない。
+  </div>
+
+  <div class="tbl-box">
+    <table>
+      <thead><tr><th>日付</th><th>曜日</th><th>区分</th><th>内容</th><th>旅行への影響</th></tr></thead>
+      <tbody>
+        <tr><td>3/5</td><td>金</td><td>平日</td><td>出発前日（父は出社可）</td><td>早朝便のため有給不要の可能性。荷造りを済ませ早寝、3/6 03:00 前に出発</td></tr>
+        <tr><td>3/6</td><td>土</td><td><span class="badge-tbd">出発</span></td><td>NH836 06:20 CGK 発</td><td>レバラン出国ラッシュで CGK T3 は混雑。04:00 チェックイン目安</td></tr>
+        <tr><td>3/8</td><td>月</td><td><span class="badge-done">国民の休日</span></td><td>Hari Raya Nyepi</td><td>東京観光②。日本滞在中なので影響なし</td></tr>
+        <tr><td>3/9</td><td>火</td><td><span class="badge-todo">cuti bersama</span></td><td>Idul Fitri 1448H（政府指定休暇）</td><td>東京 → 四国中央市へ移動</td></tr>
+        <tr><td>3/12・3/15</td><td>金・月</td><td><span class="badge-todo">cuti bersama</span></td><td>Idul Fitri 1448H（政府指定休暇）</td><td>会社の有給控除扱いか要確認（3/9 も同様）</td></tr>
+        <tr><td>3/10〜3/11</td><td>水・木</td><td><span class="badge-done">国民の休日</span></td><td><b>Idul Fitri 1448H</b></td><td>—</td></tr>
+        <tr><td>3/15</td><td>月</td><td><span class="badge-todo">cuti bersama</span></td><td>10連休最終日</td><td><b>父 帰国日</b>（3/16 00:20 羽田発 → 06:00 CGK 着）。そのまま出社</td></tr>
+        <tr><td>3/21・3/22</td><td>日・月</td><td><span class="badge-tbd">日本の祝日</span></td><td>春分の日 → 振替休日</td><td>3連休で観光地・道路が混む</td></tr>
+        <tr><td>3/25頃〜</td><td>—</td><td><span class="badge-tbd">日本</span></td><td>春休み・桜シーズン</td><td>国内便・宿が高騰。4/3 の高松→羽田便は早めに確保</td></tr>
+        <tr><td>3/26</td><td>金</td><td><span class="badge-done">国民の休日</span></td><td>Wafat Isa Almasih（聖金曜日）</td><td>父が3連休。<b>四国へ週末合流の候補</b>（3/26〜28）</td></tr>
+        <tr><td>4/3→4/4</td><td>土→日</td><td><span class="badge-tbd">休暇終了</span></td><td>家族 NH871 で帰国</td><td>4/4 05:05 CGK 着。4/5(月) から通常</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="src">
+    出典：
+    <a href="https://setneg.go.id/baca/index/inilah_skb_3_menteri_libur_nasional_dan_cuti_bersama_2027" target="_blank">国家官房 SKB 3 Menteri 2027</a> ／
+    <a href="https://www.antaranews.com/berita/5749784/jadwal-libur-lebaran-2027-ada-potensi-libur-panjang-10-hari" target="_blank">Antara：レバラン2027 10連休</a> ／
+    <a href="https://katadata.co.id/berita/industri/6aaa599202c89/skb-libur-dan-cuti-bersama-2027-terbit-menaker-beberkan-hak-pekerja" target="_blank">Katadata：SKB 2027 発表</a>
+  </div>
+</div>
+
+<!-- ======= CALENDAR ======= -->
+<div class="section">
+  <div class="section-title">📅 30日間カレンダー（3/6〜4/4）</div>
+  <div class="cal-wrap">
+
+    <div class="month">
+      <h3>2027年3月</h3>
+      <div class="cal">
+        <div class="dow sun">日</div><div class="dow">月</div><div class="dow">火</div><div class="dow">水</div><div class="dow">木</div><div class="dow">金</div><div class="dow sat">土</div>
+        <div class="d out"></div>
+        <div class="d out"><span class="n">1</span></div>
+        <div class="d out"><span class="n">2</span></div>
+        <div class="d out"><span class="n">3</span></div>
+        <div class="d out"><span class="n">4</span></div>
+        <div class="d phaseA"><span class="n">5</span>出発前日<br>荷造り・早寝</div>
+        <div class="d inwin wknd phaseA"><span class="n">6</span>✈️ NH836 06:20<br>🛬 成田 15:40<br>品プリ泊</div>
+
+        <div class="d inwin wknd phaseA"><span class="n">7</span>東京観光①<br>品プリ泊</div>
+        <div class="d inwin hol phaseA"><span class="n">8</span>東京観光②<br>品プリ泊</div>
+        <div class="d inwin cb phaseA"><span class="n">9</span>🚅 四国中央市へ移動</div>
+        <div class="d inwin hol phaseA"><span class="n">10</span>Idul Fitri<br>四国中央市</div>
+        <div class="d inwin hol phaseA"><span class="n">11</span>四国中央市</div>
+        <div class="d inwin cb phaseA"><span class="n">12</span>四国中央市</div>
+        <div class="d inwin wknd phaseA"><span class="n">13</span>四国中央市</div>
+
+        <div class="d inwin wknd phaseA"><span class="n">14</span>四国中央市</div>
+        <div class="d inwin cb phaseA"><span class="n">15</span>✈️ 父 高松→羽田<br>深夜 NH871</div>
+        <div class="d inwin phaseB"><span class="n">16</span>🛬 父 CGK 06:00<br>出社／家族のみ</div>
+        <div class="d inwin phaseB"><span class="n">17</span></div>
+        <div class="d inwin phaseB"><span class="n">18</span></div>
+        <div class="d inwin phaseB"><span class="n">19</span></div>
+        <div class="d inwin wknd phaseB"><span class="n">20</span></div>
+
+        <div class="d inwin jp phaseB"><span class="n">21</span>🇯🇵 春分の日</div>
+        <div class="d inwin jp phaseB"><span class="n">22</span>🇯🇵 振替休日</div>
+        <div class="d inwin phaseB"><span class="n">23</span></div>
+        <div class="d inwin phaseB"><span class="n">24</span></div>
+        <div class="d inwin phaseB"><span class="n">25</span></div>
+        <div class="d inwin hol phaseB"><span class="n">26</span>聖金曜日<br>父 合流候補</div>
+        <div class="d inwin wknd phaseB"><span class="n">27</span></div>
+
+        <div class="d inwin wknd phaseB"><span class="n">28</span>イースター</div>
+        <div class="d inwin phaseB"><span class="n">29</span></div>
+        <div class="d inwin phaseB"><span class="n">30</span></div>
+        <div class="d inwin phaseB"><span class="n">31</span></div>
+        <div class="d out"></div><div class="d out"></div><div class="d out"></div>
+      </div>
+    </div>
+
+    <div class="month">
+      <h3>2027年4月</h3>
+      <div class="cal">
+        <div class="dow sun">日</div><div class="dow">月</div><div class="dow">火</div><div class="dow">水</div><div class="dow">木</div><div class="dow">金</div><div class="dow sat">土</div>
+        <div class="d out"></div><div class="d out"></div><div class="d out"></div><div class="d out"></div>
+        <div class="d inwin phaseB"><span class="n">1</span></div>
+        <div class="d inwin phaseB"><span class="n">2</span>東京へ移動？</div>
+        <div class="d inwin wknd phaseB"><span class="n">3</span>✈️ NH871<br>羽田 23:30 発</div>
+
+        <div class="d inwin wknd phaseB"><span class="n">4</span>🛬 CGK 05:05<br>父が迎え</div>
+        <div class="d out"><span class="n">5</span>通常復帰</div>
+        <div class="d out"><span class="n">6</span></div>
+        <div class="d out"><span class="n">7</span></div>
+        <div class="d out"><span class="n">8</span></div>
+        <div class="d out"><span class="n">9</span></div>
+        <div class="d out"><span class="n">10</span></div>
+      </div>
+      <div class="legend">
+        <span class="lg-hol">インドネシア国民の休日</span>
+        <span class="lg-cb">cuti bersama</span>
+        <span class="lg-jp">日本の祝日</span>
+        <span class="lg-win">休暇期間</span>
+        <span>A ＝ 全員（〜3/15） ／ B ＝ 妻・子供のみ（3/16〜）</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======= PHASES ======= -->
+<div class="section">
+  <div class="section-title">🧭 フェーズ構成</div>
+  <div class="phase-grid">
+    <div class="phase ph-a">
+      <div class="ph-head">
+        <h3>Phase A ｜ 全員（東京 → 四国中央市）</h3>
+        <div class="dates">3/6(土)早朝 〜 3/15(月)｜父の有給は不要の可能性（3/5 出社可）</div>
+      </div>
+      <div class="ph-body">
+        <ul>
+          <li>3/6 06:20 NH836 で出発、15:40 成田着。品川プリンス 3泊、<b>東京観光は 3/7・3/8 の2日間</b>。</li>
+          <li>3/9 四国中央市へ移動（飛行機で高松 or 新幹線）。3/14 まで親戚回り・滞在。</li>
+          <li><b>3/15 父 帰国</b>：高松 → 羽田 T2、NH871 で 3/16 00:20 発・06:00 CGK 着、そのまま出社（F5PXDF 発券済）。</li>
+          <li>3月上旬は寒いので<b>冬セット（フリース・クッキングセット）</b>で行く。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase ph-b">
+      <div class="ph-head">
+        <h3>Phase B ｜ 妻・長男・長女（四国中央市）</h3>
+        <div class="dates">3/16(火) 〜 4/3(土)｜19日間｜復路 NH871 発券済</div>
+      </div>
+      <div class="ph-body">
+        <ul>
+          <li>親戚宅を拠点に滞在。妻ひとりで子供2人を連れて動ける範囲でコースを組む。</li>
+          <li>候補：道後温泉・しまなみ海道・金刀比羅宮・高知（前回 Phase 2 で挙げたもの）。3/20 以降は桜。</li>
+          <li><b>3/26(金) 聖金曜日で父は3連休</b>。費用次第で四国へ週末合流も検討。</li>
+          <li>4/2 or 4/3 に東京へ移動し、<b>4/3 23:30 羽田発 NH871</b> で帰国。4/4 05:05 CGK 着、父が迎え。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= CHECKLIST ======= -->
+<div class="section">
+  <div class="section-title">📋 手配・予約チェックリスト</div>
+  <div class="checklist-grid">
+
+    <div class="check-card">
+      <h3 style="color:#1e40af;">✈️ フライト</h3>
+      <div class="check-item"><span class="ico">✅</span><div class="lbl"><strong>家族 復路 NH871 4/3 羽田 23:30 → CGK 4/4 05:05</strong><span>予約番号 5GK8TD ／ 妻名義で発券 ／ 2PC ／ 発券 2026/10/11</span></div><span class="tag tag-done">済</span></div>
+      <div class="check-item"><span class="ico">⚠️</span><div class="lbl"><strong>長男・長女の復路チケット確認</strong><span>5GK8TD に3名含まれるか、別番号か。3名分 PDF をこのフォルダに保存。</span></div><span class="tag tag-req">要確認</span></div>
+      <div class="check-item"><span class="ico">✅</span><div class="lbl"><strong>往路 NH836 3/6 06:20 CGK T3 → 成田 T1 15:40</strong><span>予約番号 5H7LFY ／ 長男名義（座席 30A）／ 2PC ／ 発券 2026/10/11</span></div><span class="tag tag-done">済</span></div>
+      <div class="check-item"><span class="ico">⚠️</span><div class="lbl"><strong>父・妻・長女の往路チケット確認</strong><span>5H7LFY に4名含まれるか、別番号か。4名分 PDF を保存。</span></div><span class="tag tag-req">要確認</span></div>
+      <div class="check-item"><span class="ico">✅</span><div class="lbl"><strong>父 復路 NH871 3/16 00:20 羽田 T2 → CGK 06:00</strong><span>予約番号 F5PXDF ／ 座席 23C ／ 2PC ／ 発券 2026/10/11</span></div><span class="tag tag-done">済</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>国内線 羽田 → 高松 3/9（NH533 候補・4名）</strong><span>新幹線案と比較して決定。</span></div><span class="tag tag-tbd">要決定</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>国内線 高松 → 羽田 3/15 午後（父）</strong><span>00:20 発に合わせ 20:00 頃までに羽田着の便。</span></div><span class="tag tag-req">要手配</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>国内線 高松 → 羽田 4/3（家族3名）</strong><span>春休みで混む。早めに。</span></div><span class="tag tag-req">要手配</span></div>
+    </div>
+
+    <div class="check-card">
+      <h3 style="color:#4c1d95;">🏨 宿泊・交通・連絡</h3>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>品川プリンスホテル 3/6〜3/8 3泊（4名）</strong><span>3/6 17:30 頃チェックイン、3/9 チェックアウト。</span></div><span class="tag tag-req">要手配</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>成田エクスプレス 成田 → 品川 3/6（4名）</strong><span>N'EX 往復きっぷ or 当日購入。15:40 着なので 16:30 前後の便。</span></div><span class="tag tag-tbd">当日でも可</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>4/2 東京1泊（家族3名）</strong><span>4/3 を東京で過ごす場合のみ。</span></div><span class="tag tag-tbd">要決定</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>義父へ高松ピックアップ依頼（3/9）</strong><span>飛行機案の場合。</span></div><span class="tag tag-tbd">案1なら</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>レンタカー（四国・必要な日だけ）</strong><span>前回の反省：借りっぱなしにしない。遮音性の良い車種。</span></div><span class="tag tag-tbd">要検討</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>親戚・従兄弟・長男の友達へ LINE</strong><span>行く旨と日程を早めに共有。集合場所を決める。</span></div><span class="tag tag-req">要連絡</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>父の有給（3/5 は不要の可能性）・cuti bersama の扱い確認</strong><span>3/6 早朝便なので 3/5 は出社可。3/9・3/12・3/15 が有給控除か。</span></div><span class="tag tag-req">要確認</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>子供の学校の休暇日程・欠席連絡</strong><span>3/16〜4/2 の欠席日数を把握。</span></div><span class="tag tag-req">要確認</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>パスポート残存期間（全員）・Visit Japan Web</strong><span>4/4 時点で6か月以上あるか。</span></div><span class="tag tag-req">要確認</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======= COST ======= -->
+<div class="section">
+  <div class="section-title">💰 費用まとめ（暫定）</div>
+  <div class="cost-box">
+    <div class="cost-row"><span>✅ 家族 復路 NH871 4/3（5GK8TD・発券済）</span><span>金額は控えを参照して記入</span></div>
+    <div class="cost-row"><span>✅ 往路 NH836 3/6（5H7LFY・発券済）</span><span>金額は控えを参照して記入</span></div>
+    <div class="cost-row"><span>✅ 父 復路 NH871 3/16（F5PXDF・発券済）</span><span>金額は控えを参照して記入</span></div>
+    <div class="cost-row"><span>🔲 国内線 羽田 → 高松 3/9（4名）</span><span>約60,000〜90,000円</span></div>
+    <div class="cost-row"><span>🔲 国内線 高松 → 羽田 3/15（父）＋ 4/3（3名）</span><span>約60,000〜90,000円</span></div>
+    <div class="cost-row"><span>🔲 品川プリンスホテル 3泊（4名）</span><span>約75,000〜120,000円</span></div>
+    <div class="cost-row"><span>🔲 東京観光・食費（3/6 夜〜3/8）</span><span>約50,000〜70,000円</span></div>
+    <div class="cost-row"><span>🔲 四国 レンタカー・観光・食費（約4週間・親戚宅拠点）</span><span>約100,000〜150,000円</span></div>
+    <div class="cost-row cost-total">
+      <span>合計目安（国際線除く）</span>
+      <span class="amt">約34〜52万円</span>
+    </div>
+  </div>
+  <div style="margin-top:12px;font-size:0.83rem;color:#6b7280;">
+    ※ 国際線（往路4名・父復路・家族復路）は別途計上。前回 2026年夏の全体予算は 60万円。
+  </div>
+</div>
+
+<!-- ======= PACKING ======= -->
+<div class="section">
+  <div class="section-title">🧳 持ち物方針（3月の日本＝冬セット）</div>
+  <div class="note">
+    <p style="margin-bottom:8px;"><b>原則：</b>「入れ物を良くするより荷物を減らす」「少々の不便を受け入れる勇気」「季節・コースで組み替える」「預け入れを面倒がらず賢く使う」（<a href="../2026-summer-japan/retrospective.md" style="color:#0f766e;">2026年夏 振り返り</a>）</p>
+    <ul>
+      <li><b>通年：</b>Tシャツ×3・パンツ×3（黄色 Patagonia ブラックホールバッグ）／ OpenRun Pro 2 ／ マルチコンセント＋ケーブル ／ T字髭剃り ／ 帽子 ／ 持ち込み用エマージェンシーキット（酔い止め充実）／ タオルは現地調達</li>
+      <li><b>冬セット：</b>フリース（ジャケットは買わない・持たない）／ クッキングセット（コップ・ポット・やかん。三島なら火沸かし不要）</li>
+      <li><b>持たないもの：</b>モバイルバッテリー・スピーカー・AirPods・望遠レンズ（高倍率ズーム1本に）。</li>
+      <li><b>家族の復路は 2PC 預け入れ可</b>。父が先に帰るので、父の帰りに不要になった荷物を持ち帰ってもらい、家族の荷物を軽くする。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======= OPEN QUESTIONS ======= -->
+<div class="section">
+  <div class="section-title">📝 オープンな論点メモ</div>
+  <div class="note">
+    <ul>
+      <li>3/9 東京 → 四国中央市：飛行機（高松・義父ピックアップ）か新幹線か。</li>
+      <li>父 3/15 復路：NH871 で確定。残りは高松 → 羽田の午後便の手配のみ。</li>
+      <li>家族 4/3：当日 高松 → 羽田で直行か、4/2 に東京入りして1泊するか。</li>
+      <li>3/26〜28 の父の3連休に四国へ合流するか（費用との相談）。</li>
+      <li>長男の日本の友達との再会を東京・四国どちらで組むか。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  米井家 2027春 レバラン休暇 ｜ 日本（東京 → 四国中央市）｜ 最終更新：2026年10月11日（往路 NH836 3/6 に合わせ 3/9 四国移動へ修正）
+</div>
+
+</body>
+</html>
