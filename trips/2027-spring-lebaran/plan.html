@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2027春 レバラン休暇 日本旅行 計画｜米井家</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f0f4f8; color: #1a202c; }
@@ -110,6 +112,16 @@
   @media (max-width: 900px) { .opt-grid { grid-template-columns: 1fr; } }
   .opt { background: white; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); font-size: 0.88rem; line-height: 1.7; }
   .opt h4 { font-size: 0.95rem; font-weight: 800; color: #0f766e; margin-bottom: 6px; }
+  #map { height: 560px; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); background: #e5e7eb; }
+  @media (max-width: 700px) { #map { height: 420px; } }
+  .map-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.82rem; color: #4a5568; margin-top: 12px; align-items: center; }
+  .map-legend .ln { display: inline-block; width: 28px; height: 0; border-top: 4px solid; margin-right: 6px; vertical-align: middle; }
+  .map-legend .ln.a { border-color: #0f766e; }
+  .map-legend .ln.f { border-color: #f59e0b; border-top-style: dashed; }
+  .map-legend .ln.b { border-color: #6366f1; border-top-style: dotted; }
+  .map-btn { background: #0f766e; color: white; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; cursor: pointer; margin-left: auto; }
+  .num-icon { background: #0f766e; color: white; border-radius: 50%; width: 26px; height: 26px; line-height: 26px; text-align: center; font-weight: 800; font-size: 0.8rem; border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+  .num-icon.f { background: #f59e0b; } .num-icon.b { background: #6366f1; } .num-icon.g { background: #6b7280; }
   .footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 0.8rem; }
   .src { font-size: 0.8rem; color: #6b7280; margin-top: 10px; line-height: 1.7; }
   .src a { color: #0f766e; }
@@ -119,11 +131,11 @@
 
 <div class="hero">
   <h1>🇯🇵 2027春 レバラン休暇｜日本（東京 → 四国中央市）</h1>
-  <div class="sub">レバラン10連休に合わせて 3/6 早朝にジャカルタ発（NH836・成田着）。浅草を拠点に東京観光2日間（3/7・3/8）と 3/9 日光東照宮 日帰り。3/10 は三保の松原で1泊し、3/11 に四国中央市へ。父は 3/15 深夜（3/16 00:20 羽田発）に帰国、妻・長男・長女は 4/3 まで滞在。</div>
+  <div class="sub">レバラン10連休に合わせて 3/6 早朝にジャカルタ発（NH836・成田着）。浅草を拠点に東京観光2日間（3/7・3/8）と 3/9 日光東照宮 日帰り。3/10 は三保の松原に寄って焼津で1泊、3/11 に四国中央市へ。父は 3/15 深夜（3/16 00:20 羽田発）に帰国、妻・長男・長女は 4/3 まで滞在。</div>
   <div class="meta">
     <span class="badge">📆 2027年3月6日(土) 〜 4月4日(日)早朝着｜30日間</span>
     <span class="badge">👨‍👩‍👧‍👦 父・妻・長男・長女（父は 3/15 帰国）</span>
-    <span class="badge">📍 東京（浅草 4泊・日光日帰り）→ 三保の松原 1泊 → 四国中央市</span>
+    <span class="badge">📍 東京（浅草 4泊・日光日帰り）→ 三保の松原・焼津 1泊 → 四国中央市</span>
     <span class="badge">🏷️ 計画中｜往路・父復路・家族復路 発券済</span>
     <span class="badge">← <a href="../../index.html">旅行一覧へ</a></span>
   </div>
@@ -150,7 +162,7 @@
   </div>
   <div class="warn-box">
     <strong>⚠️ 往路は「3/5 夜便」ではなく「3/6 早朝便・成田着」で発券されている</strong>
-    当初計画は 3/5(金) 夜の羽田行きだったが、発券された NH836 は <b>3/6(土) 06:20 CGK 発 → 15:40 成田着</b>。チェックインは 04:00 頃、自宅を 03:00 前に出る。成田から浅草までは京成アクセス特急で乗換なし約1時間なので、ホテル着は 17:30 頃。東京観光は <b>3/7・3/8 の2日間、3/9 は日光東照宮 日帰り</b>とし、3/10 は三保の松原で1泊、3/11 に四国中央市へ移動（浅草 4泊＋三保 1泊）。添付は長男1名分（予約 5H7LFY）。父・妻・長女が同じ予約に含まれているかを確認し、4名分の PDF を保存。
+    当初計画は 3/5(金) 夜の羽田行きだったが、発券された NH836 は <b>3/6(土) 06:20 CGK 発 → 15:40 成田着</b>。チェックインは 04:00 頃、自宅を 03:00 前に出る。成田から浅草までは京成アクセス特急で乗換なし約1時間なので、ホテル着は 17:30 頃。東京観光は <b>3/7・3/8 の2日間、3/9 は日光東照宮 日帰り</b>とし、3/10 は三保の松原に寄って焼津で1泊、3/11 に四国中央市へ移動（浅草 4泊＋焼津 1泊）。添付は長男1名分（予約 5H7LFY）。父・妻・長女が同じ予約に含まれているかを確認し、4名分の PDF を保存。
   </div>
   <div class="warn-box">
     <strong>⚠️ 家族復路 NH871（5GK8TD）の確認事項</strong>
@@ -170,7 +182,7 @@
     <div class="arrow">→</div>
     <div class="stop"><div class="when">3/6(土) 15:40 成田着〜3/9(火)　4泊</div><div class="where">東京・浅草</div><div class="what">浅草拠点（浅草ビューホテル 第一候補）。浅草寺・上野・ポケモンセンター・新宿・原宿、3/9 日光東照宮 日帰り</div></div>
     <div class="arrow">→</div>
-    <div class="stop"><div class="when">3/10(水)　1泊</div><div class="where">三保の松原（静岡・清水）</div><div class="what">清水港で昼食、久能山東照宮 or ドリームプラザ、夕暮れと早朝の富士山。三保園ホテル 第一候補</div></div>
+    <div class="stop"><div class="when">3/10(水)　1泊</div><div class="where">三保の松原 → 焼津</div><div class="what">清水港で昼食、三保の松原散策、焼津グランドホテル泊（決定）</div></div>
     <div class="arrow">→</div>
     <div class="stop"><div class="when">3/11(木)〜3/15(月)</div><div class="where">四国中央市</div><div class="what">3/11 静岡 → 岡山 → しおかぜで伊予三島 16〜17時。全員で滞在・親戚回り（4泊）。3/15 夜 父 帰国（NH871）</div></div>
     <div class="arrow">→</div>
@@ -202,15 +214,16 @@
       ・3月の日光は東京より5℃ほど低く<b>残雪・路面凍結あり</b>。フリース＋手袋、歩きやすい靴。
     </div>
     <div class="opt">
-      <h4>🗻 3/10(水) 三保の松原で1泊 → 3/11(木) 四国中央市へ</h4>
+      <h4>🗻 3/10(水) 三保の松原 → 焼津グランドホテル泊 → 3/11(木) 四国中央市へ</h4>
       <b>3/10(水)</b>：<br>
       ・浅草 9時頃発 → 東京駅 → <b>10時台のひかりで静岡 11:00 頃</b> → 東海道線で清水（11分）。<br>
       ・昼食：清水港「<b>河岸の市</b>」でまぐろ・寿司（清水駅から徒歩10分 or 無料バス）。<br>
       ・午後：子供向けに <b>エスパルスドリームプラザ</b>（ちびまる子ちゃんランド・観覧車、河岸の市の隣）か、<b>日本平ロープウェイ → 久能山東照宮</b>（家康が最初に葬られた東照宮。日光とセットで見ると面白い）。<br>
-      ・15〜16時：バス or タクシーで三保へ、宿にチェックイン。夕方は<b>羽衣の松・御穂神社・神の道・みほしるべ</b>を散策、砂浜から夕焼けの富士山。<br>
+      ・14〜16時：バス or タクシーで<b>三保の松原</b>へ。羽衣の松・御穂神社・神の道・みほしるべを散策、砂浜から富士山（午後は逆光気味なので早めが良い）。<br>
+      ・16時半：三保 → 清水 → 静岡 → <b>焼津（JR 約35分）</b>。焼津駅から<b>焼津グランドホテル</b>の送迎バスで高台のホテルへ。露天風呂から駿河湾、夕食はまぐろ・金目鯛の会席。<br>
       <b>3/11(木)</b>：<br>
-      ・早朝：空気が澄んで<b>富士山が一番よく見える時間</b>。砂浜を散歩してから朝食。<br>
-      ・10時頃チェックアウト → 清水 → 静岡 → <b>11〜12時台のひかり（岡山直通、約2時間50分）</b> → 岡山 14〜15時 → <b>特急しおかぜ</b>で伊予三島 約1時間20分 → <b>16〜17時頃 四国中央市着</b>。義父に伊予三島駅へ迎えを依頼。<br>
+      ・早朝：客室・露天風呂から駿河湾越しの<b>朝の富士山</b>。朝食後、10時頃チェックアウト。<br>
+      ・焼津駅 → 静岡（JR 12分）→ <b>11〜12時台のひかり（岡山直通、約2時間50分）</b> → 岡山 14〜15時 → <b>特急しおかぜ</b>で伊予三島 約1時間20分 → <b>16〜17時頃 四国中央市着</b>。義父に伊予三島駅へ迎えを依頼。<br>
       ・荷物は宅急便で先送り済み（3/9 浅草発 → 3/10〜11 四国中央市着）なので手荷物のみ。乗車券は東京 → 伊予三島を通しで買い、清水で途中下車（乗車券の有効期間内なら翌日の続行も可）。<br>
       ・4名の運賃目安：乗車券＋特急券で約 70,000〜85,000円。<br>
       ・全員での四国滞在は <b>3/11〜3/15 の4泊</b>。
@@ -233,7 +246,7 @@
 
 <!-- ======= HOTELS ======= -->
 <div class="section">
-  <div class="section-title">🏨 宿の提案（東京 ＝ 浅草 4泊 ／ 静岡 ＝ 三保の松原 1泊）</div>
+  <div class="section-title">🏨 宿（東京 ＝ 浅草 4泊 ／ 静岡 ＝ 焼津グランドホテル 1泊）</div>
   <div class="info-box">
     <strong>💡 東京の拠点は品川より「浅草」が便利</strong>
     成田から<b>京成アクセス特急で乗換なし</b>（約1時間）／ 浅草寺が徒歩圏 ／ <b>東武日光特急の始発駅</b> ／ 上野（国立博物館）は銀座線2駅 ／ ポケモンセンター スカイツリータウンは東武1駅 ／ 新宿・原宿は約40分 ／ 羽田へは都営浅草線直通で約40分。今回の行き先すべてに対して最短。
@@ -266,39 +279,77 @@
   </div>
 
   <div class="info-box" style="margin-top:24px;">
-    <strong>🗻 三保の松原の宿（3/10 1泊）</strong>
-    「松原の中に泊まって朝夕の富士山を見る」なら三保半島の宿、「眺望と食事の格」なら日本平。子供の受入条件・添い寝は予約前に確認。
-  </div>
-  <div class="dest-grid">
-    <div class="dest" style="border-top-color:#b45309;">
-      <h3>三保園ホテル</h3>
-      <div class="pro">＋ <b>三保の松原の中</b>にあり、羽衣の松まで徒歩圏。天然温泉の大浴場・露天風呂から富士山と駿河湾。早朝の砂浜散歩がそのままできる。家族向けの和室、海の幸の会席。</div>
-      <div class="con">－ 建物は年季あり。清水駅からバス25分 or タクシー。</div>
-      <div class="fit">目安：15,000〜25,000円/人（2食付）。<b>第一候補</b>（目的に最も合う）。</div>
-    </div>
-    <div class="dest" style="border-top-color:#b45309;">
-      <h3>日本平ホテル</h3>
-      <div class="pro">＋ 日本平の丘の上、ロビーの大窓から<b>富士山・清水港・三保の松原を一望</b>（「風景美術館」）。久能山東照宮へロープウェイすぐ。庭が広く子供が走れる。食事の質が高い。</div>
-      <div class="con">－ 三保の松原そのものには泊まらない（車で20分）。価格は高め。</div>
-      <div class="fit">目安：2名1室 40,000〜80,000円/泊（4名は2室 or スイート）。眺望・記念日重視なら。</div>
-    </div>
-    <div class="dest" style="border-top-color:#b45309;">
-      <h3>焼津温泉 ホテルアンビア松風閣（焼津）</h3>
-      <div class="pro">＋ 高台の全室オーシャンビュー、露天風呂から富士山・駿河湾・伊豆半島。夕食は焼津のまぐろ・地魚の会席、<b>朝食は釜揚げしらす食べ放題などの地元バイキング</b>が評判。焼津駅から送迎。</div>
-      <div class="con">－ 三保の松原には泊まらない（清水 → 静岡 → 焼津 約35分、三保までは車で40分）。夕食バイキングではない。</div>
-      <div class="fit">目安：15,000〜25,000円/人（2食付）。眺望・温泉・朝食重視なら。</div>
-    </div>
-    <div class="dest" style="border-top-color:#b45309;">
-      <h3>清水駅前のビジネスホテル</h3>
-      <div class="pro">＋ 翌朝の移動が最も楽。河岸の市・ドリームプラザが徒歩圏。費用最小。</div>
-      <div class="con">－ 富士山・松原の雰囲気はない。三保へは往復バス。</div>
-      <div class="fit">目安：15,000〜25,000円/室。移動を優先する場合の控え。</div>
-    </div>
+    <strong>♨️ 3/10 の宿：焼津グランドホテル（決定）</strong>
+    焼津市浜当目の高台に建つ温泉リゾート。全室オーシャンビュー、露天風呂から駿河湾と伊豆半島、朝は富士山。夕食は焼津のまぐろ・金目鯛の会席、朝食はバイキング。焼津駅から送迎バス（要予約時確認）。三保の松原からは 清水 → 静岡 → 焼津 で約1時間。翌朝は焼津 → 静岡 12分で新幹線に接続。
   </div>
   <div class="src">
     参考：<a href="https://www.tobu.co.jp/spaciax/guide/" target="_blank">東武鉄道 スペーシア X ご利用ガイド</a>（1か月前から発売）
   </div>
 </div>
+
+<!-- ======= MAP ======= -->
+<div class="section">
+  <div class="section-title">🗺️ 旅の軌跡マップ</div>
+  <div id="map"></div>
+  <div class="map-legend">
+    <span><span class="ln a"></span>Phase A 全員（3/6〜3/15）</span>
+    <span><span class="ln f"></span>父 帰国（3/15〜16）</span>
+    <span><span class="ln b"></span>家族 帰国（4/3〜4）</span>
+    <button class="map-btn" id="fitJapan">日本を表示</button>
+    <button class="map-btn" id="fitAll" style="margin-left:8px;">ジャカルタまで全体表示</button>
+  </div>
+  <div style="font-size:0.8rem;color:#6b7280;margin-top:8px;">番号をクリックすると日付と予定が出ます。地図：© OpenStreetMap contributors</div>
+</div>
+<script>
+(function(){
+  if (typeof L === 'undefined') { document.getElementById('map').innerHTML = '<div style="padding:40px;text-align:center;color:#6b7280;">地図ライブラリを読み込めませんでした（オフライン？）</div>'; return; }
+  var P = {
+    cgk:  [-6.1256, 106.6559], nrt: [35.7720, 140.3929], hnd: [35.5494, 139.7798],
+    asakusa: [35.7118, 139.7966], ueno: [35.7188, 139.7765], skytree: [35.7101, 139.8107],
+    shinjuku: [35.6917, 139.6996], harajuku: [35.6702, 139.7027], nikko: [36.7580, 139.5990],
+    shimizu: [35.0150, 138.4910], miho: [34.9949, 138.5238], yaizu: [34.8620, 138.3380],
+    okayama: [34.6665, 133.9180], iyomishima: [33.9790, 133.5550], tak: [34.2142, 134.0156]
+  };
+  var map = L.map('map', { scrollWheelZoom: false });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+
+  var legA = [P.cgk, P.nrt, P.asakusa, P.ueno, P.skytree, P.asakusa, P.shinjuku, P.harajuku, P.asakusa, P.nikko, P.asakusa, P.shimizu, P.miho, P.yaizu, P.okayama, P.iyomishima];
+  var legF = [P.iyomishima, P.tak, P.hnd, P.cgk];
+  var legB = [P.iyomishima, P.tak, P.hnd, P.cgk];
+  L.polyline(legA, { color: '#0f766e', weight: 4, opacity: 0.85 }).addTo(map);
+  L.polyline(legF, { color: '#f59e0b', weight: 4, opacity: 0.9, dashArray: '10 8' }).addTo(map);
+  L.polyline(legB, { color: '#6366f1', weight: 3, opacity: 0.9, dashArray: '2 8', offset: 4 }).addTo(map);
+
+  var stops = [
+    ['1', 'a', P.cgk, '3/6(土) 06:20', 'ジャカルタ CGK T3 出発（NH836）'],
+    ['2', 'a', P.nrt, '3/6(土) 15:40', '成田 T1 着 → 京成アクセス特急で浅草'],
+    ['3', 'a', P.asakusa, '3/6〜3/9 4泊', '浅草拠点（浅草ビューホテル 第一候補）・浅草寺'],
+    ['4', 'a', P.ueno, '3/7(日) 午前', '東京国立博物館'],
+    ['5', 'a', P.skytree, '3/7(日) 午後', 'ポケモンセンター スカイツリータウン'],
+    ['6', 'a', P.shinjuku, '3/8(月) 午前', 'マップカメラ（高倍率ズーム購入）'],
+    ['7', 'a', P.harajuku, '3/8(月) 午後', 'Fender Flagship Tokyo'],
+    ['8', 'a', P.nikko, '3/9(火) 日帰り', '日光東照宮（東武特急 浅草発着）'],
+    ['9', 'a', P.shimizu, '3/10(水) 昼', '清水港 河岸の市で昼食'],
+    ['10', 'a', P.miho, '3/10(水) 午後', '三保の松原・羽衣の松・御穂神社'],
+    ['11', 'a', P.yaizu, '3/10(水) 泊', '焼津グランドホテル'],
+    ['12', 'a', P.okayama, '3/11(木) 14時頃', '岡山 乗換（ひかり → しおかぜ）'],
+    ['13', 'a', P.iyomishima, '3/11〜4/2', '四国中央市（伊予三島）親戚宅。父は 3/15 まで、家族は 4/2 まで'],
+    ['14', 'f', P.tak, '3/15(月) 午後 ／ 4/3(土)', '高松空港 → 羽田（父 3/15、家族 4/3）'],
+    ['15', 'f', P.hnd, '3/16(火) 00:20 ／ 4/3(土) 23:30', '羽田 T2 発 NH871（父 F5PXDF ／ 家族 5GK8TD）'],
+    ['16', 'b', P.cgk, '3/16(火) 06:00 ／ 4/4(日) 05:05', 'ジャカルタ CGK T3 着']
+  ];
+  stops.forEach(function(st){
+    var icon = L.divIcon({ className: '', html: '<div class="num-icon ' + st[1] + '">' + st[0] + '</div>', iconSize: [26, 26], iconAnchor: [13, 13] });
+    L.marker(st[2], { icon: icon }).addTo(map).bindPopup('<b>' + st[3] + '</b><br>' + st[4]);
+  });
+
+  var japan = L.latLngBounds([P.iyomishima, P.nikko, P.nrt, P.okayama]).pad(0.15);
+  var all = L.latLngBounds([P.cgk, P.nikko, P.nrt]).pad(0.08);
+  map.fitBounds(japan);
+  document.getElementById('fitJapan').onclick = function(){ map.fitBounds(japan); };
+  document.getElementById('fitAll').onclick = function(){ map.fitBounds(all); };
+})();
+</script>
 
 <!-- ======= HOLIDAYS ======= -->
 <div class="section">
@@ -318,7 +369,7 @@
         <tr><td>3/8</td><td>月</td><td><span class="badge-done">国民の休日</span></td><td>Hari Raya Nyepi</td><td>東京観光②（新宿・原宿）。日本滞在中なので影響なし</td></tr>
         <tr><td>3/9</td><td>火</td><td><span class="badge-todo">cuti bersama</span></td><td>Idul Fitri 1448H（政府指定休暇）</td><td>日光東照宮 日帰り</td></tr>
         <tr><td>3/12・3/15</td><td>金・月</td><td><span class="badge-todo">cuti bersama</span></td><td>Idul Fitri 1448H（政府指定休暇）</td><td>会社の有給控除扱いか要確認（3/9 も同様）</td></tr>
-        <tr><td>3/10〜3/11</td><td>水・木</td><td><span class="badge-done">国民の休日</span></td><td><b>Idul Fitri 1448H</b></td><td>3/10 東京 → 三保の松原 泊 ／ 3/11 静岡 → 岡山 → 四国中央市</td></tr>
+        <tr><td>3/10〜3/11</td><td>水・木</td><td><span class="badge-done">国民の休日</span></td><td><b>Idul Fitri 1448H</b></td><td>3/10 東京 → 三保の松原 → 焼津泊 ／ 3/11 焼津 → 岡山 → 四国中央市</td></tr>
         <tr><td>3/15</td><td>月</td><td><span class="badge-todo">cuti bersama</span></td><td>10連休最終日</td><td><b>父 帰国日</b>（3/16 00:20 羽田発 → 06:00 CGK 着）。そのまま出社</td></tr>
         <tr><td>3/21・3/22</td><td>日・月</td><td><span class="badge-tbd">日本の祝日</span></td><td>春分の日 → 振替休日</td><td>3連休で観光地・道路が混む</td></tr>
         <tr><td>3/25頃〜</td><td>—</td><td><span class="badge-tbd">日本</span></td><td>春休み・桜シーズン</td><td>国内便・宿が高騰。4/3 の高松→羽田便は早めに確保</td></tr>
@@ -355,7 +406,7 @@
         <div class="d inwin wknd phaseA"><span class="n">7</span>浅草寺・国立博物館<br>ポケモンセンター</div>
         <div class="d inwin hol phaseA"><span class="n">8</span>マップカメラ<br>Fender 原宿</div>
         <div class="d inwin cb phaseA"><span class="n">9</span>⛩️ 日光東照宮<br>日帰り・浅草泊</div>
-        <div class="d inwin hol phaseA"><span class="n">10</span>🗻 三保の松原<br>三保泊</div>
+        <div class="d inwin hol phaseA"><span class="n">10</span>🗻 三保の松原<br>焼津泊</div>
         <div class="d inwin hol phaseA"><span class="n">11</span>🚅 四国中央市へ<br>16〜17時着</div>
         <div class="d inwin cb phaseA"><span class="n">12</span>四国中央市</div>
         <div class="d inwin wknd phaseA"><span class="n">13</span>四国中央市</div>
@@ -426,8 +477,8 @@
         <ul>
           <li>3/6 06:20 NH836 で出発、15:40 成田着。<b>浅草 4泊</b>、東京観光は 3/7・3/8 の2日間（浅草寺・上野・ポケモンセンター・新宿・原宿）。</li>
           <li>3/9 東武特急で<b>日光東照宮 日帰り</b>、夜は浅草。</li>
-          <li>3/10 新幹線で静岡へ。清水港で昼食、<b>三保の松原で1泊</b>（三保園ホテル 第一候補）。夕暮れと早朝の富士山。</li>
-          <li>3/11 静岡 → 岡山 → しおかぜで伊予三島 16〜17時。3/14 まで親戚回り・滞在（全員での四国は<b>4泊</b>）。</li>
+          <li>3/10 新幹線で静岡へ。清水港で昼食、<b>三保の松原</b>を散策し、<b>焼津グランドホテル泊</b>（決定）。</li>
+          <li>3/11 焼津 → 静岡 → 岡山 → しおかぜで伊予三島 16〜17時。3/14 まで親戚回り・滞在（全員での四国は<b>4泊</b>）。</li>
           <li><b>3/15 父 帰国</b>：高松 → 羽田 T2、NH871 で 3/16 00:20 発・06:00 CGK 着、そのまま出社（F5PXDF 発券済）。</li>
           <li>3月上旬は寒いので<b>冬セット（フリース・クッキングセット）</b>で行く。</li>
         </ul>
@@ -470,7 +521,7 @@
     <div class="check-card">
       <h3 style="color:#4c1d95;">🏨 宿泊・交通・連絡</h3>
       <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>浅草のホテル 3/6〜3/9 4泊（4名）</strong><span>浅草ビューホテル 第一候補（OMO3 浅草／ゲートホテル雷門 も可）。3/6 17:30 頃チェックイン、3/10 朝チェックアウト。</span></div><span class="tag tag-req">要手配</span></div>
-      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>三保の松原の宿 3/10 1泊（4名・2食付）</strong><span>三保園ホテル 第一候補（日本平ホテル／松風閣 も可）。子供の受入条件を確認して予約。</span></div><span class="tag tag-req">要手配</span></div>
+      <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>焼津グランドホテル 3/10 1泊（4名・2食付）</strong><span>決定。焼津駅からの送迎バス時刻を予約時に確認。</span></div><span class="tag tag-req">要予約</span></div>
       <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>東武特急 3/9 浅草 ⇄ 東武日光 往復（8時台／15〜16時台）4名</strong><span>「トブチケ！」で1か月前から。</span></div><span class="tag tag-req">要手配</span></div>
       <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>大きな荷物の宅急便（浅草 → 四国中央市）3/9 発送</strong><span>ホテルフロントで手配（3/8 夕方でも可）。3/10 は手荷物のみで移動。</span></div><span class="tag tag-tbd">当日手配</span></div>
       <div class="check-item"><span class="ico">🔲</span><div class="lbl"><strong>ポケモンカフェ予約（3/7・トウキョーDX にする場合）</strong><span>公式サイトで1か月前から予約。人気枠は即埋まる。</span></div><span class="tag tag-tbd">任意</span></div>
@@ -495,7 +546,7 @@
     <div class="cost-row"><span>✅ 往路 NH836 3/6（5H7LFY・発券済）</span><span>金額は控えを参照して記入</span></div>
     <div class="cost-row"><span>✅ 父 復路 NH871 3/16（F5PXDF・発券済）</span><span>金額は控えを参照して記入</span></div>
     <div class="cost-row"><span>🔲 新幹線・特急 東京 → 清水（3/10）→ 岡山 → 伊予三島（3/11）4名</span><span>約70,000〜85,000円</span></div>
-    <div class="cost-row"><span>🔲 三保の松原の宿 1泊（4名・2食付）</span><span>約60,000〜100,000円（日本平ホテルなら 100,000〜160,000円）</span></div>
+    <div class="cost-row"><span>🔲 焼津グランドホテル 1泊（4名・2食付）</span><span>約60,000〜100,000円</span></div>
     <div class="cost-row"><span>🔲 国内線 高松 → 羽田 3/15（父）＋ 4/3（3名）</span><span>約60,000〜90,000円</span></div>
     <div class="cost-row"><span>🔲 浅草のホテル 4泊（4名）</span><span>約120,000〜200,000円</span></div>
     <div class="cost-row"><span>🔲 東京観光・食費（3/6 夜〜3/8）</span><span>約50,000〜70,000円</span></div>
@@ -505,7 +556,7 @@
     <div class="cost-row"><span>🔲 四国 レンタカー・観光・食費（約4週間・親戚宅拠点）</span><span>約100,000〜150,000円</span></div>
     <div class="cost-row cost-total">
       <span>合計目安（国際線除く）</span>
-      <span class="amt">約56〜83万円</span>
+      <span class="amt">約56〜81万円</span>
     </div>
   </div>
   <div style="margin-top:12px;font-size:0.83rem;color:#6b7280;">
@@ -532,7 +583,7 @@
   <div class="section-title">📝 オープンな論点メモ</div>
   <div class="note">
     <ul>
-      <li>三保の宿：三保園ホテル（松原の中・温泉）か 日本平ホテル（眺望・格）か。</li>
+      <li>3/10 の三保の松原は午後。朝の富士山を優先するなら、翌 3/11 朝に焼津から三保へ戻る案もあるが移動が増える。</li>
       <li>3/10 午後：久能山東照宮（日光とセット）か、子供向けのエスパルスドリームプラザか。</li>
       <li>三島の実家に寄るか（3/10 東京 → 三島 昼食だけ立ち寄り → 静岡 も可能。こだまで三島 → 静岡 30分）。</li>
       <li>全員での四国滞在は 3/11〜3/15 の4泊。これで良いか。</li>
