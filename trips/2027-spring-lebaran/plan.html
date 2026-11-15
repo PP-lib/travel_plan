@@ -127,6 +127,26 @@
   .map-btn { background: #0f766e; color: white; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; cursor: pointer; margin-left: auto; }
   .num-icon { background: #0f766e; color: white; border-radius: 50%; width: 26px; height: 26px; line-height: 26px; text-align: center; font-weight: 800; font-size: 0.8rem; border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.35); }
   .num-icon.f { background: #f59e0b; } .num-icon.b { background: #6366f1; } .num-icon.g { background: #6b7280; }
+  .journey { max-width: 900px; }
+  .jr-place { display: flex; gap: 14px; align-items: center; background: white; border-radius: 12px; padding: 12px 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 7px solid #0f766e; }
+  .jr-place.b { border-left-color: #6366f1; } .jr-place.f { border-left-color: #f59e0b; }
+  .jr-place .pin { font-size: 1.5rem; flex-shrink: 0; }
+  .jr-place .name { font-weight: 800; font-size: 1.08rem; color: #1a202c; }
+  .jr-place .meta { font-size: 0.82rem; color: #6b7280; margin-top: 2px; line-height: 1.5; }
+  .jr-place .stay { margin-left: auto; background: #ccfbf1; color: #134e4a; font-weight: 700; font-size: 0.8rem; border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
+  .jr-leg { margin-left: 30px; border-left: 3px dashed #94a3b8; padding: 10px 0 10px 22px; display: flex; flex-direction: column; gap: 6px; }
+  .jr-mode { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; border-radius: 10px; padding: 6px 12px; font-size: 0.86rem; width: fit-content; max-width: 100%; }
+  .jr-mode b { font-weight: 800; }
+  .jr-mode .t { color: #4a5568; font-size: 0.8rem; }
+  .m-air  { background: #dbeafe; color: #1e3a8a; }
+  .m-rail { background: #d1fae5; color: #065f46; }
+  .m-bus  { background: #ffedd5; color: #9a3412; }
+  .m-car  { background: #ede9fe; color: #4c1d95; }
+  .jr-split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+  @media (max-width: 800px) { .jr-split { grid-template-columns: 1fr; } .jr-place .stay { margin-left: 0; } .jr-place { flex-wrap: wrap; } }
+  .jr-split h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 10px; }
+  .jr-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; font-size: 0.82rem; }
+  .jr-legend span { border-radius: 20px; padding: 4px 12px; font-weight: 700; }
   .footer { text-align: center; padding: 28px; color: #94a3b8; font-size: 0.8rem; }
   .src { font-size: 0.8rem; color: #6b7280; margin-top: 10px; line-height: 1.7; }
   .src a { color: #0f766e; }
@@ -144,6 +164,80 @@
     <span class="badge">🏷️ 計画中｜往路・父復路・家族復路 発券済</span>
     <span class="badge">🚇 <a href="tokyo.html">東京 詳細マップ</a></span>
     <span class="badge">← <a href="../../index.html">旅行一覧へ</a></span>
+  </div>
+</div>
+
+<!-- ======= JOURNEY ======= -->
+<div class="section">
+  <div class="section-title">🧭 移動手段と目的地（ひと目で）</div>
+  <div class="jr-legend">
+    <span class="m-air">✈️ 飛行機</span><span class="m-rail">🚅 新幹線・電車</span><span class="m-bus">🚌 バス</span><span class="m-car">🚗 車</span>
+    <span class="badge-done">発券済・決定</span><span class="badge-todo">これから手配</span>
+  </div>
+  <div class="journey">
+
+    <div class="jr-place"><span class="pin">🏠</span><div><div class="name">ジャカルタ（CGK 第3ターミナル）</div><div class="meta">3/6(土) 早朝出発</div></div></div>
+    <div class="jr-leg">
+      <div class="jr-mode m-air">✈️ <b>NH836</b> <span class="t">06:20 発 → 15:40 成田着</span> <span class="badge-done">発券済</span></div>
+      <div class="jr-mode m-bus">🚌 <b>リムジンバス</b> 成田空港 → ホテル前 <span class="t">約2時間</span> <span class="badge-todo">予約推奨</span></div>
+    </div>
+
+    <div class="jr-place"><span class="pin">🏙️</span><div><div class="name">① 東京・池袋</div><div class="meta">サンシャインシティプリンスホテル｜3/6 ポケモンセンター｜3/7 国立博物館（上野）・マップカメラ（新宿）・Fender（原宿）</div></div><span class="stay">3/6・3/7　2泊</span></div>
+    <div class="jr-leg">
+      <div class="jr-mode m-rail">🚃 <b>3/7 都内は山手線</b> <span class="t">池袋 → 上野 → 新宿 → 原宿 → 池袋</span></div>
+      <div class="jr-mode m-rail">🚇 <b>3/8 丸ノ内線</b> 池袋 → 東京駅 <span class="t">17分</span></div>
+      <div class="jr-mode m-rail">🚅 <b>新幹線ひかり</b> 東京 → 静岡 <span class="t">約60分</span> <span class="badge-todo">要手配</span></div>
+      <div class="jr-mode m-rail">🚃 <b>東海道線</b> 静岡 → 清水 <span class="t">11分</span></div>
+      <div class="jr-mode m-bus">🚌 <b>路線バス or タクシー</b> 清水 → 三保 <span class="t">約25分</span></div>
+    </div>
+
+    <div class="jr-place"><span class="pin">🗻</span><div><div class="name">② 三保の松原（静岡・清水）</div><div class="meta">3/8(月) 昼 清水港で昼食 → 午後 羽衣の松・御穂神社・砂浜から富士山</div></div><span class="stay">立ち寄り</span></div>
+    <div class="jr-leg">
+      <div class="jr-mode m-bus">🚌 <b>バス</b> 三保 → 清水駅</div>
+      <div class="jr-mode m-rail">🚃 <b>東海道線</b> 清水 → 静岡 → 焼津 <span class="t">約35分</span></div>
+      <div class="jr-mode m-bus">🚌 <b>ホテル送迎バス</b> 焼津駅 → ホテル</div>
+    </div>
+
+    <div class="jr-place"><span class="pin">♨️</span><div><div class="name">③ 焼津</div><div class="meta">焼津グランドホテル｜温泉・駿河湾・朝の富士山</div></div><span class="stay">3/8　1泊</span></div>
+    <div class="jr-leg">
+      <div class="jr-mode m-rail">🚃 <b>東海道線</b> 焼津 → 静岡 <span class="t">12分</span></div>
+      <div class="jr-mode m-rail">🚅 <b>新幹線ひかり</b> 静岡 → 新大阪 <span class="t">約2時間</span> <span class="badge-todo">要手配</span></div>
+      <div class="jr-mode m-rail">🚃 <b>在来線</b> 新大阪 → 親戚宅 <span class="t">最寄り駅 未定</span></div>
+    </div>
+
+    <div class="jr-place"><span class="pin">🏡</span><div><div class="name">④ 関西の親戚宅（兵庫）</div><div class="meta">3/9(火) 夕方着</div></div><span class="stay">3/9　1泊</span></div>
+    <div class="jr-leg">
+      <div class="jr-mode m-rail">🚃 <b>電車</b> 親戚宅 → 伊丹 <span class="t">ルート未定</span></div>
+    </div>
+
+    <div class="jr-place"><span class="pin">👵</span><div><div class="name">⑤ 伊丹（父方祖母宅）</div><div class="meta">3/10(水) 午前 挨拶</div></div><span class="stay">立ち寄り</span></div>
+    <div class="jr-leg">
+      <div class="jr-mode m-car">🚗 <b>レンタカー（乗り捨て）</b> 伊丹 → 明石海峡大橋 → 淡路島 → 鳴門 → 四国中央市 <span class="t">約220km・3時間</span> <span class="badge-todo">要手配</span></div>
+    </div>
+
+    <div class="jr-place"><span class="pin">🍊</span><div><div class="name">⑥ 四国中央市（妻の実家）</div><div class="meta">3/10(水) 夕方着｜親戚回り</div></div><span class="stay">父 5泊 ／ 家族 24泊</span></div>
+
+    <div class="jr-split">
+      <div>
+        <h4 style="color:#b45309;">👨 父の帰り（3/15 月）</h4>
+        <div class="jr-leg" style="margin-left:14px;">
+          <div class="jr-mode m-car">🚗 <b>車</b> 四国中央市 → 高松空港 <span class="t">約60分・17:30 発</span> <span class="badge-todo">送り 未定</span></div>
+          <div class="jr-mode m-air">✈️ <b>NH540</b> <span class="t">高松 19:35 → 羽田 T2 20:50</span> <span class="badge-done">発券済</span></div>
+          <div class="jr-mode m-air">✈️ <b>NH871</b> <span class="t">羽田 T2 3/16 00:20 → CGK 06:00</span> <span class="badge-done">発券済</span></div>
+        </div>
+        <div class="jr-place f"><span class="pin">🏠</span><div><div class="name">ジャカルタ</div><div class="meta">3/16(火) 06:00 着 → 出社</div></div></div>
+      </div>
+      <div>
+        <h4 style="color:#4338ca;">👩‍👧‍👦 妻・長男・長女の帰り（4/3 土）</h4>
+        <div class="jr-leg" style="margin-left:14px;">
+          <div class="jr-mode m-car">🚗 <b>車</b> 四国中央市 → 高松空港 <span class="t">約60分</span></div>
+          <div class="jr-mode m-air">✈️ <b>国内線</b> <span class="t">高松 → 羽田（便 未定）</span> <span class="badge-todo">要手配</span></div>
+          <div class="jr-mode m-air">✈️ <b>NH871</b> <span class="t">羽田 4/3 23:30 → CGK 4/4 05:05</span> <span class="badge-done">発券済</span></div>
+        </div>
+        <div class="jr-place b"><span class="pin">🏠</span><div><div class="name">ジャカルタ</div><div class="meta">4/4(日) 05:05 着 → 父が迎え</div></div></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -185,25 +279,7 @@
 
 <!-- ======= ROUTE ======= -->
 <div class="section">
-  <div class="section-title">🗺️ 行程サマリー</div>
-  <div class="route">
-    <div class="stop"><div class="when">3/6(土) 06:20</div><div class="where">ジャカルタ CGK T3</div><div class="what">NH836 で出発。レバラン出国ラッシュ、04:00 チェックイン目安</div></div>
-    <div class="arrow">→</div>
-    <div class="stop"><div class="when">3/6(土) 15:40 成田着　2泊</div><div class="where">東京・池袋</div><div class="what">サンシャインシティプリンスホテル（決定）。3/6 夕方 ポケモンセンター、3/7 国立博物館・マップカメラ・Fender</div></div>
-    <div class="arrow">→</div>
-    <div class="stop"><div class="when">3/8(月)　1泊</div><div class="where">三保の松原 → 焼津</div><div class="what">ゆっくり東京を出て清水港で昼食、三保の松原散策、焼津グランドホテル泊（決定）</div></div>
-    <div class="arrow">→</div>
-    <div class="stop"><div class="when">3/9(火)　1泊</div><div class="where">関西 親戚宅（兵庫）</div><div class="what">焼津 → 静岡 → 新大阪（ひかり 約2時間）→ 親戚宅泊</div></div>
-    <div class="arrow">→</div>
-    <div class="stop"><div class="when">3/10(水)</div><div class="where">伊丹 → 🚗 四国中央市</div><div class="what">父方祖母宅に挨拶 → レンタカーで明石海峡・淡路・鳴門経由 約3時間、四国中央市で乗り捨て</div></div>
-    <div class="arrow">→</div>
-    <div class="stop"><div class="when">3/10(水)〜3/15(月)</div><div class="where">四国中央市</div><div class="what">全員で滞在・親戚回り（5泊）。3/15 夜 父 帰国（NH871）</div></div>
-    <div class="arrow">→</div>
-    <div class="stop b"><div class="when">3/16(火)〜4/2(金)</div><div class="where">四国中央市（家族のみ）</div><div class="what">妻・長男・長女。親戚宅拠点</div></div>
-    <div class="arrow">→</div>
-    <div class="stop b"><div class="when">4/3(土) 23:30</div><div class="where">羽田 → CGK</div><div class="what">NH871。4/4(日) 05:05 ジャカルタ着、父が迎え</div></div>
-  </div>
-
+  <div class="section-title">🗺️ 行程の詳細（日ごとの動き）</div>
   <div class="opt-grid">
     <div class="opt">
       <h4>🏙️ 東京 2泊（池袋拠点）：3/6 夕方 ＋ 3/7 終日</h4>
@@ -591,7 +667,7 @@
 </div>
 
 <div class="footer">
-  米井家 2027春 レバラン休暇 ｜ 日本（東京 → 四国中央市）｜ 最終更新：2026年10月11日（3/9 関西 親戚宅、3/10 伊丹 → レンタカーで四国入りへ修正）
+  米井家 2027春 レバラン休暇 ｜ 日本（東京 → 四国中央市）｜ 最終更新：2026年11月15日（移動手段と目的地の一覧を追加）
 </div>
 
 </body>
