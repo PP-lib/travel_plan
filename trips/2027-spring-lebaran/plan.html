@@ -133,6 +133,12 @@
   .jr-place .pin { font-size: 1.5rem; flex-shrink: 0; }
   .jr-place .name { font-weight: 800; font-size: 1.08rem; color: #1a202c; }
   .jr-place .meta { font-size: 0.82rem; color: #6b7280; margin-top: 2px; line-height: 1.5; }
+  .jr-place.has-acts { align-items: flex-start; }
+  .jr-place.has-acts .stay { align-self: flex-start; }
+  .acts { margin: 8px 0 2px; padding-left: 1.25rem; font-size: 0.88rem; line-height: 1.75; color: #374151; }
+  .acts li b { color: #0f766e; font-weight: 700; margin-right: 4px; }
+  .acts li.maybe { color: #6b7280; }
+  .acts-h { font-size: 0.8rem; font-weight: 800; color: #4a5568; margin-top: 10px; }
   .jr-place .stay { margin-left: auto; background: #ccfbf1; color: #134e4a; font-weight: 700; font-size: 0.8rem; border-radius: 20px; padding: 4px 12px; white-space: nowrap; }
   .jr-leg { margin-left: 30px; border-left: 3px dashed #94a3b8; padding: 10px 0 10px 22px; display: flex; flex-direction: column; gap: 6px; }
   .jr-mode { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; border-radius: 10px; padding: 6px 12px; font-size: 0.86rem; width: fit-content; max-width: 100%; }
@@ -182,7 +188,22 @@
       <div class="jr-mode m-bus">🚌 <b>リムジンバス</b> 成田空港 → ホテル前 <span class="t">約2時間</span> <span class="badge-todo">予約推奨</span></div>
     </div>
 
-    <div class="jr-place"><span class="pin">🏙️</span><div><div class="name">① 東京・池袋</div><div class="meta">サンシャインシティプリンスホテル｜3/6 ポケモンセンター｜3/7 国立博物館（上野）・マップカメラ（新宿）・Fender（原宿）</div></div><span class="stay">3/6・3/7　2泊</span></div>
+    <div class="jr-place has-acts"><span class="pin">🏙️</span><div><div class="name">① 東京・池袋</div><div class="meta">宿：サンシャインシティプリンスホテル</div>
+      <div class="acts-h">3/6(土) 到着日</div>
+      <ul class="acts">
+        <li><b>18:00</b>ホテルにチェックイン</li>
+        <li><b>夕方</b>ポケモンセンター メガトウキョー（ホテルと同じ建物、20:00 まで）</li>
+        <li><b>夜</b>サンシャインシティ内で夕食</li>
+      </ul>
+      <div class="acts-h">3/7(日) 東京の用事を1日で</div>
+      <ul class="acts">
+        <li><b>9:30〜12:00</b>東京国立博物館（上野）</li>
+        <li><b>13:30〜15:00</b>マップカメラ（新宿）で高倍率ズームレンズを比較・購入</li>
+        <li><b>15:15〜17:00</b>Fender Flagship Tokyo（原宿）で試奏・カフェ</li>
+        <li><b>夜</b>池袋で夕食、大きな荷物を宅急便で四国中央市へ発送</li>
+        <li class="maybe">余裕があれば：サンシャイン水族館・展望台</li>
+      </ul>
+    </div><span class="stay">3/6・3/7　2泊</span></div>
     <div class="jr-leg">
       <div class="jr-mode m-rail">🚃 <b>3/7 都内は山手線</b> <span class="t">池袋 → 上野 → 新宿 → 原宿 → 池袋</span></div>
       <div class="jr-mode m-rail">🚇 <b>3/8 丸ノ内線</b> 池袋 → 東京駅 <span class="t">17分</span></div>
@@ -191,31 +212,76 @@
       <div class="jr-mode m-bus">🚌 <b>路線バス or タクシー</b> 清水 → 三保 <span class="t">約25分</span></div>
     </div>
 
-    <div class="jr-place"><span class="pin">🗻</span><div><div class="name">② 三保の松原（静岡・清水）</div><div class="meta">3/8(月) 昼 清水港で昼食 → 午後 羽衣の松・御穂神社・砂浜から富士山</div></div><span class="stay">立ち寄り</span></div>
+    <div class="jr-place has-acts"><span class="pin">🗻</span><div><div class="name">② 三保の松原（静岡・清水）</div><div class="meta">3/8(月) 昼〜夕方</div>
+      <ul class="acts">
+        <li><b>12:30</b>清水港「河岸の市」でまぐろ・寿司の昼食</li>
+        <li><b>14:00</b>羽衣の松（天女伝説の松、富士山の定番の構図）</li>
+        <li>御穂神社と「神の道」（松並木の参道を歩く）</li>
+        <li>砂浜を散歩、駿河湾越しの富士山を眺める</li>
+        <li>みほしるべ（ビジターセンター、富士山と松原の展示）</li>
+        <li class="maybe">余裕があれば：エスパルスドリームプラザ（ちびまる子ちゃんランド・観覧車）</li>
+      </ul>
+    </div><span class="stay">立ち寄り</span></div>
     <div class="jr-leg">
       <div class="jr-mode m-bus">🚌 <b>バス</b> 三保 → 清水駅</div>
       <div class="jr-mode m-rail">🚃 <b>東海道線</b> 清水 → 静岡 → 焼津 <span class="t">約35分</span></div>
       <div class="jr-mode m-bus">🚌 <b>ホテル送迎バス</b> 焼津駅 → ホテル</div>
     </div>
 
-    <div class="jr-place"><span class="pin">♨️</span><div><div class="name">③ 焼津</div><div class="meta">焼津グランドホテル｜温泉・駿河湾・朝の富士山</div></div><span class="stay">3/8　1泊</span></div>
+    <div class="jr-place has-acts"><span class="pin">♨️</span><div><div class="name">③ 焼津</div><div class="meta">宿：焼津グランドホテル</div>
+      <ul class="acts">
+        <li><b>3/8 夕方</b>露天風呂から駿河湾と伊豆半島を眺める</li>
+        <li><b>3/8 夜</b>まぐろ・金目鯛の会席の夕食</li>
+        <li><b>3/9 朝</b>客室・露天風呂から朝の富士山</li>
+        <li><b>3/9 朝</b>朝食バイキング、10:00 チェックアウト</li>
+      </ul>
+    </div><span class="stay">3/8　1泊</span></div>
     <div class="jr-leg">
       <div class="jr-mode m-rail">🚃 <b>東海道線</b> 焼津 → 静岡 <span class="t">12分</span></div>
       <div class="jr-mode m-rail">🚅 <b>新幹線ひかり</b> 静岡 → 新大阪 <span class="t">約2時間</span> <span class="badge-todo">要手配</span></div>
       <div class="jr-mode m-rail">🚃 <b>在来線</b> 新大阪 → 親戚宅 <span class="t">最寄り駅 未定</span></div>
     </div>
 
-    <div class="jr-place"><span class="pin">🏡</span><div><div class="name">④ 関西の親戚宅（兵庫）</div><div class="meta">3/9(火) 夕方着</div></div><span class="stay">3/9　1泊</span></div>
+    <div class="jr-place has-acts"><span class="pin">🏡</span><div><div class="name">④ 関西の親戚宅（兵庫）</div><div class="meta">3/9(火) 夕方着</div>
+      <ul class="acts">
+        <li><b>夕方</b>親戚に挨拶、夕食</li>
+        <li><b>夜</b>親戚宅に宿泊</li>
+      </ul>
+    </div><span class="stay">3/9　1泊</span></div>
     <div class="jr-leg">
       <div class="jr-mode m-rail">🚃 <b>電車</b> 親戚宅 → 伊丹 <span class="t">ルート未定</span></div>
     </div>
 
-    <div class="jr-place"><span class="pin">👵</span><div><div class="name">⑤ 伊丹（父方祖母宅）</div><div class="meta">3/10(水) 午前 挨拶</div></div><span class="stay">立ち寄り</span></div>
+    <div class="jr-place has-acts"><span class="pin">👵</span><div><div class="name">⑤ 伊丹（父方祖母宅）</div><div class="meta">3/10(水) 午前〜昼</div>
+      <ul class="acts">
+        <li><b>午前</b>父方祖母に挨拶（1〜2時間）</li>
+        <li><b>昼</b>伊丹でレンタカーを借りて出発</li>
+        <li><b>道中</b>淡路 SA で休憩・昼食、明石海峡大橋と鳴門の景色</li>
+      </ul>
+    </div><span class="stay">立ち寄り</span></div>
     <div class="jr-leg">
       <div class="jr-mode m-car">🚗 <b>レンタカー（乗り捨て）</b> 伊丹 → 明石海峡大橋 → 淡路島 → 鳴門 → 四国中央市 <span class="t">約220km・3時間</span> <span class="badge-todo">要手配</span></div>
     </div>
 
-    <div class="jr-place"><span class="pin">🍊</span><div><div class="name">⑥ 四国中央市（妻の実家）</div><div class="meta">3/10(水) 夕方着｜親戚回り</div></div><span class="stay">父 5泊 ／ 家族 24泊</span></div>
+    <div class="jr-place has-acts"><span class="pin">🍊</span><div><div class="name">⑥ 四国中央市（妻の実家）</div><div class="meta">3/10(水) 夕方着</div>
+      <div class="acts-h">全員（3/10〜3/15）</div>
+      <ul class="acts">
+        <li><b>3/10 夕方</b>レンタカーを乗り捨て、義父の迎えで実家へ</li>
+        <li>親戚回り、従兄弟と再会（事前に LINE で連絡）</li>
+        <li>高松の妹家へ挨拶</li>
+        <li><b>3/15 17:30</b>父が高松空港へ出発</li>
+      </ul>
+      <div class="acts-h">妻・長男・長女（3/16〜4/2）候補</div>
+      <ul class="acts">
+        <li>道後温泉（松山）</li>
+        <li>しまなみ海道</li>
+        <li>金刀比羅宮</li>
+        <li>高知（四万十川・桂浜）</li>
+        <li>お花見（3/20 頃から桜）</li>
+        <li>長男の日本の友達と再会</li>
+        <li class="maybe">3/26〜28：父が3連休で合流するか検討中</li>
+      </ul>
+    </div><span class="stay">父 5泊 ／ 家族 24泊</span></div>
 
     <div class="jr-split">
       <div>
@@ -667,7 +733,7 @@
 </div>
 
 <div class="footer">
-  米井家 2027春 レバラン休暇 ｜ 日本（東京 → 四国中央市）｜ 最終更新：2026年11月15日（移動手段と目的地の一覧を追加）
+  米井家 2027春 レバラン休暇 ｜ 日本（東京 → 四国中央市）｜ 最終更新：2026年11月15日（移動手段・目的地・各地のアクティビティ一覧を追加）
 </div>
 
 </body>
